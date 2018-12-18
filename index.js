@@ -44,10 +44,10 @@ app.use(morgan('dev'))
 
 //Database connection (NOSQL, MONGODB)
 if (process.env.NODE_ENV == 'testCloud' || process.env.NODE_ENV == 'production') {
-    mongoose.connect('mongodb+srv://mongoUser:Kaasplankje85@cluster0-hcsa2.gcp.mongodb.net/test?retryWrites=true',
+    mongoose.connect('',
         { useNewUrlParser: true });
 } else if (process.env.NODE_ENV !== 'test') {
-    mongoose.connect('mongodb://localhost/MusicTickets',
+    mongoose.connect('mongodb://localhost/HandPicked',
         { useNewUrlParser: true });
 }
 
