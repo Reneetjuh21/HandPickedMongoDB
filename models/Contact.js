@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const Ticket = require('./Ticket')
 const Schema = mongoose.Schema
 
 const ContactSchema = new Schema({

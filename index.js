@@ -7,8 +7,6 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const expressJWT = require('express-jwt')
 
-const loginController = require('./controllers/LoginController')
-
 //routes
 const contactRoutes = require('./routes/ContactRoutes')
 const companyRoutes = require('./routes/CompanyRoutes')
@@ -53,12 +51,12 @@ if (process.env.NODE_ENV == 'testCloud' || process.env.NODE_ENV == 'production')
 }
 
 // Routes
-app.use('/api', loginRoutes)
-app.use('/api', userRoutes)
-// Everything underneath the app.all('*', loginController.validateToken) will require a token
-app.use('/api', artistRoutes)
-app.use('/api', concertRoutes)
-app.use('/api', ticketRoutes)
+app.use('/api', contactRoutes)
+app.use('/api', companyRoutes)
+app.use('/api', employeeRoutes)
+app.use('/api', labelRoutes)
+app.use('/api', invoiceRoutes)
+app.use('/api', dealRoutes)
 
 // Postprocessing; catch all non-existing endpoint requests
 app.use('*', function (req, res, next) {
