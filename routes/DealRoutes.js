@@ -1,9 +1,11 @@
-const ticket_controller = require('../controllers/TicketController');
+const deal_controller = require('../controllers/DealController');
 const express = require('express');
 const router = express.Router();
 
-router.post('/tickets', ticket_controller.create)
-router.delete('/tickets', ticket_controller.delete)
-router.get('/tickets', ticket_controller.getTicketsFromUser)
+// router.post('/concerts', deal_controller.create)
+// router.put('/concerts', deal_controller.edit)
+// router.delete('/concerts', deal_controller.delete)
+router.get('/deals', deal_controller.get)
+router.get('/deals/:id', deal_controller.getById)
 
 module.exports = router;

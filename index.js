@@ -10,11 +10,12 @@ const expressJWT = require('express-jwt')
 const loginController = require('./controllers/LoginController')
 
 //routes
-const userRoutes = require('./routes/UserRoutes')
-const loginRoutes = require('./routes/LoginRoutes')
-const artistRoutes = require('./routes/ArtistRoutes')
-const concertRoutes = require('./routes/ConcertRoutes')
-const ticketRoutes = require('./routes/TicketRoutes')
+const contactRoutes = require('./routes/ContactRoutes')
+const companyRoutes = require('./routes/CompanyRoutes')
+const dealRoutes = require('./routes/DealRoutes')
+const invoiceRoutes = require('./routes/InvoiceRoutes')
+const employeeRoutes = require('./routes/EmployeeRoutes')
+const labelRoutes = require('./routes/LabelRoutes')
 
 
 const ApiError = require('./models/ApiError')
