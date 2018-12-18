@@ -5,14 +5,14 @@ const auth = require('../auth/auth')
 
 module.exports = {
     create(req, res, next){
-        var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-            if (err) {
-                const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-                res.status(401).json(error)
-            } else {
-                token = payload
-            }
-        })
+        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
+        //     if (err) {
+        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
+        //         res.status(401).json(error)
+        //     } else {
+        //         token = payload
+        //     }
+        // })
 
         const properties = req.body
         Artist.create(properties)
@@ -29,14 +29,14 @@ module.exports = {
     },
 
     edit(req, res, next){
-        var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-            if (err) {
-                const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-                res.status(401).json(error)
-            } else {
-                token = payload
-            }
-        })
+        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
+        //     if (err) {
+        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
+        //         res.status(401).json(error)
+        //     } else {
+        //         token = payload
+        //     }
+        // })
 
         const artistId = req.body.id
         const properties = req.body
@@ -54,14 +54,14 @@ module.exports = {
     },
 
     delete(req, res, next) {
-        var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-            if (err) {
-                const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-                res.status(401).json(error)
-            } else {
-                token = payload
-            }
-        })
+        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
+        //     if (err) {
+        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
+        //         res.status(401).json(error)
+        //     } else {
+        //         token = payload
+        //     }
+        // })
 
         const artistId = req.query.id
 

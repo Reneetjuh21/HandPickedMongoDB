@@ -5,15 +5,15 @@ const auth = require('../auth/auth')
 
 module.exports = {
     create(req, res, next){
-        var token
-        var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-            if (err) {
-                const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-                res.status(401).json(error)
-            } else {
-                token = payload
-            }
-        })
+        // var token
+        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
+        //     if (err) {
+        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
+        //         res.status(401).json(error)
+        //     } else {
+        //         token = payload
+        //     }
+        // })
         const concertId = req.body.concertId
 
         Concert.findById({ _id: concertId })
@@ -35,14 +35,14 @@ module.exports = {
     },
 
     delete(req, res, next) {
-        var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-            if (err) {
-                const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-                res.status(401).json(error)
-            } else {
-                token = payload
-            }
-        })
+        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
+        //     if (err) {
+        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
+        //         res.status(401).json(error)
+        //     } else {
+        //         token = payload
+        //     }
+        // })
 
         const concertId = req.query.cId
         const ticketId = req.query.tId
@@ -65,14 +65,14 @@ module.exports = {
 
     getTicketsFromUser(req,res,next) {
         var ObjectId = require('mongoose').Types.ObjectId; 
-        var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-            if (err) {
-                const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-                res.status(401).json(error)
-            } else {
-                token = payload
-            }
-        }) 
+        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
+        //     if (err) {
+        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
+        //         res.status(401).json(error)
+        //     } else {
+        //         token = payload
+        //     }
+        // }) 
 
         Concert.aggregate([
             { $unwind: '$tickets'},

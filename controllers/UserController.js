@@ -7,15 +7,15 @@ module.exports = {
 
     //WW Change/EDIT
     editPassword(req,res,next){
-        var token
-        var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-            if (err) {
-                const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-                res.status(401).json(error)
-            } else {
-                token = payload
-            }
-        })
+        // var token
+        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
+        //     if (err) {
+        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
+        //         res.status(401).json(error)
+        //     } else {
+        //         token = payload
+        //     }
+        // })
         const body = req.body
 
         if (body.newPassword != null || body.newPassword != undefined){
@@ -47,14 +47,14 @@ module.exports = {
 
     //User Delete/DELETE
     deleteUser(req, res, next){
-        var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-            if (err) {
-                const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-                res.status(401).json(error)
-            } else {
-                token = payload
-            }
-        })
+        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
+        //     if (err) {
+        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
+        //         res.status(401).json(error)
+        //     } else {
+        //         token = payload
+        //     }
+        // })
 
         const user = token.userId
         const password= req.body.password
