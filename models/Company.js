@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Contact = require("Contact")
+const Contact = require("./Contact")
 const Schema = mongoose.Schema
 
 const CompanySchema = new Schema({
