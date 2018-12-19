@@ -1,23 +1,39 @@
 const moment = require('moment')
 var Contact = require('../models/Contact')
+var Company = require('../models/Company')
 const Error = require('../models/ApiError')
 const auth = require('../auth/auth')
 
 module.exports = {
     create(req, res, next){
+        const companyId = req.body.companyId
         const properties = req.body
+        const contact = {
+            "name": properties.name,
+            "phonenumber": properties.phonenumber,
+            "email": properties.email,
+            "employee": properties.employee
+        }
 
-        Contact.create(properties)
-            .then(contact => {
-                res.status(201).json({
-                    "message": "Contact has been succesfully created.",
-                    "code": 201,
-                    "contact": contact
-                })
+        Company.findById(companyId)
+            .then((company) => {
+                if (company !== null && company !== undefined){
+                    company.contacts.push(contact)
+                    company.save()
+                    Company.findById({ _id: companyId })
+                        .then((company) => res.status(201).json({
+                            "message": "Contact has been succesfully added to Company.",
+                            "code": 201,
+                            "company": company
+                        }))
+                          
+                } else {
+                    next(new Error('Company not found, wrong identifier.', 422))
+                }
             })
-        .catch((err) => {
-            next(new Error(err, 500))
-        })
+            .catch(() => {
+                next(new Error('Company not found, wrong identifier.', 422))
+            })
     },
 
     // edit(req, res, next){
