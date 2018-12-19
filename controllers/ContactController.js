@@ -4,29 +4,21 @@ const Error = require('../models/ApiError')
 const auth = require('../auth/auth')
 
 module.exports = {
-    // create(req, res, next){
-    //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-    //     //     if (err) {
-    //     //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-    //     //         res.status(401).json(error)
-    //     //     } else {
-    //     //         token = payload
-    //     //     }
-    //     // })
+    create(req, res, next){
+        const properties = req.body
 
-    //     const properties = req.body
-    //     Concert.create({artist: properties.artist, capacity: properties.capacity, ticketPrice: properties.ticketPrice, date: properties.date, time: ''+properties.time ,created_at: moment().toDate()})
-    //         .then(concert => {
-    //             res.status(201).json({
-    //                 "message": "Concert has been succesfully created.",
-    //                 "code": 201,
-    //                 "concert": concert
-    //             })
-    //         })
-    //     .catch((err) => {
-    //         next(new Error(err, 500))
-    //     });
-    // },
+        Contact.create(properties)
+            .then(contact => {
+                res.status(201).json({
+                    "message": "Contact has been succesfully created.",
+                    "code": 201,
+                    "contact": contact
+                })
+            })
+        .catch((err) => {
+            next(new Error(err, 500))
+        })
+    },
 
     // edit(req, res, next){
     //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
@@ -38,18 +30,18 @@ module.exports = {
     //     //     }
     //     // })
 
-    //     const concertId = req.body.id
+    //     const contactId = req.body.id
     //     const properties = req.body
 
-    //     Concert.findByIdAndUpdate({ _id: concertId }, properties)
-    //         .then(() => Concert.findById({ _id: concertId}))
-    //         .then((concert) => res.status(200).json({
-    //             "message": "Concert has been succesfully edited.",
+    //     Contact.findByIdAndUpdate({ _id: contactId }, properties)
+    //         .then(() => Contact.findById({ _id: contactId}))
+    //         .then((contact) => res.status(200).json({
+    //             "message": "Contact has been succesfully edited.",
     //             "code": 200,
-    //             "concert": concert
+    //             "contact": contact
     //         }))
     //         .catch(() => {
-    //             next(new Error('Concert not found, wrong identifier.', 422))
+    //             next(new Error('Contact not found, wrong identifier.', 422))
     //         })
     // },
 
@@ -63,16 +55,16 @@ module.exports = {
     //     //     }
     //     // })
 
-    //     const concertId = req.query.id
+    //     const contactId = req.query.id
 
-    //     Concert.findOneAndDelete({ _id: concertId})
+    //     Contact.findOneAndDelete({ _id: contactId})
     //         .then(() => res.status(200).json({
-    //             "message": "Concert has been succesfully deleted.",
+    //             "message": "Contact has been succesfully deleted.",
     //             "code": 200,
-    //             "concertId": concertId
+    //             "contactId": contactId
     //         }))
     //         .catch(() => {
-    //             next(new Error('Concert not found, wrong identifier.', 422))
+    //             next(new Error('Contact not found, wrong identifier.', 422))
     //         })
     // },
 
