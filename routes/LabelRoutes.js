@@ -2,7 +2,7 @@ const label_controller = require('../controllers/LabelController');
 const express = require('express');
 const router = express.Router();
 
-// router.post('/concerts', label_controller.create)
+router.post('/labels', label_controller.create)
 // router.put('/concerts', label_controller.edit)
 // router.delete('/concerts', label_controller.delete)
 router.get('/labels', label_controller.get)
