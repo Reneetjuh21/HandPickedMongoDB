@@ -4,7 +4,8 @@ const Schema = mongoose.Schema
 const EmployeeSchema = new Schema({
     label: {
         type: Schema.Types.ObjectId, 
-        ref: 'label' 
+        ref: 'label',
+        required: true
     },
     name: {
         type: String,

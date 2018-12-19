@@ -4,29 +4,30 @@ const Error = require('../models/ApiError')
 const auth = require('../auth/auth')
 
 module.exports = {
-    // create(req, res, next){
-    //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-    //     //     if (err) {
-    //     //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-    //     //         res.status(401).json(error)
-    //     //     } else {
-    //     //         token = payload
-    //     //     }
-    //     // })
+    create(req, res, next){
+        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
+        //     if (err) {
+        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
+        //         res.status(401).json(error)
+        //     } else {
+        //         token = payload
+        //     }
+        // })
 
-    //     const properties = req.body
-    //     Artist.create(properties)
-    //         .then(artist => {
-    //             res.status(201).json({
-    //                 "message": "Artist has been succesfully created.",
-    //                 "code": 201,
-    //                 "artist": artist
-    //             })
-    //         })
-    //     .catch((err) => {
-    //         next(new Error(err, 500))
-    //     });
-    // },
+        const properties = req.body
+
+        Company.create(properties)
+            .then(company => {
+                res.status(201).json({
+                    "message": "Company has been succesfully created.",
+                    "code": 201,
+                    "company": company
+                })
+            })
+        .catch((err) => {
+            next(new Error(err, 500))
+        });
+    },
 
     // edit(req, res, next){
     //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
