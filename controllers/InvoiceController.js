@@ -4,29 +4,29 @@ const Error = require('../models/ApiError')
 const auth = require('../auth/auth')
 
 module.exports = {
-    // create(req, res, next){
-    //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-    //     //     if (err) {
-    //     //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-    //     //         res.status(401).json(error)
-    //     //     } else {
-    //     //         token = payload
-    //     //     }
-    //     // })
+    create(req, res, next){
+        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
+        //     if (err) {
+        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
+        //         res.status(401).json(error)
+        //     } else {
+        //         token = payload
+        //     }
+        // })
 
-    //     const properties = req.body
-    //     Invoice.create(properties)
-    //         .then(invoice => {
-    //             res.status(201).json({
-    //                 "message": "Invoice has been succesfully created.",
-    //                 "code": 201,
-    //                 "invoice": invoice
-    //             })
-    //         })
-    //     .catch((err) => {
-    //         next(new Error(err, 500))
-    //     });
-    // },
+        const properties = req.body
+        Invoice.create(properties)
+            .then(invoice => {
+                res.status(201).json({
+                    "message": "Invoice has been succesfully created.",
+                    "code": 201,
+                    "invoice": invoice
+                })
+            })
+        .catch((err) => {
+            next(new Error(err, 500))
+        });
+    },
 
     // edit(req, res, next){
     //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
