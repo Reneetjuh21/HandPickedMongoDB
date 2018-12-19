@@ -43,7 +43,7 @@ app.use(morgan('dev'))
 
 //Database connection (NOSQL, MONGODB)
 if (process.env.NODE_ENV == 'testCloud' || process.env.NODE_ENV == 'production') {
-    mongoose.connect('',
+    mongoose.connect('mongodb+srv://studdit:project@studditproject-oi4rl.azure.mongodb.net/HandPicked?retryWrites=true',
         { useNewUrlParser: true });
 } else if (process.env.NODE_ENV !== 'test') {
     mongoose.connect('mongodb://localhost/HandPicked',

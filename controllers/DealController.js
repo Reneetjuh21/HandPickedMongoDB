@@ -28,22 +28,29 @@ module.exports = {
         })
 
         const employeeId = req.body.employeeId
+        var dealId
+
+        console.log(deal)
 
         Employee.findById(employeeId)
             .then((employee) => {
-                if (employee !== null){
+                if (employee !== null && employee !== undefined){
                     employee.deals.push(deal)
-                    deal.save(function (err, com) {
-                        dealId = com._id
-                        console.log(dealId)
-                        employee.save()
-                        Deal.findById({ _id: dealId })
-                            .then((deal) => res.status(201).json({
-                                "message": "Deal has been succesfully added to employee.",
-                                "code": 201,
-                                "deal": deal
-                            }))
-                    })
+                    deal.save()
+                        .then(() => {
+                            dealId = deal._id
+                            console.log(dealId)
+                            employee.save()
+                            Deal.findById({ _id: dealId })
+                                .then((deal) => res.status(201).json({
+                                    "message": "Deal has been succesfully added to employee.",
+                                    "code": 201,
+                                    "deal": deal
+                                }))
+                        })
+                        .catch((err) => {
+                            next(new Error('Deak not created, '+ err, 500))
+                        })
                 } else {
                     next(new Error('Employee not found, wrong identifier.', 422))
                 }
