@@ -5,7 +5,7 @@ const auth = require('../auth/auth')
 
 module.exports = {
     create(req, res, next){
-        const labelId = req.body.labelId
+        const labelId = req.params.id
         const properties = req.body
         const employee = {
             "name": properties.name,
