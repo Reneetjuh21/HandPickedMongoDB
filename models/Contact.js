@@ -14,10 +14,18 @@ const ContactSchema = new Schema({
         type: String,
         required: true
     },
+    function: {
+        type: String,
+        required: true
+    },
     employee: {
         type: Schema.Types.ObjectId, 
         ref: 'employee',
         required: true 
+    },
+    linkedin: {
+        type: String,
+        required: true
     }
 })
 
