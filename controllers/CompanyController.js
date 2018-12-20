@@ -17,7 +17,7 @@ module.exports = {
             /* creating a company with these constants */
             const newCompany = new Company({ name: name, contact: contact});
 
-            /* save the new company to the database */
+            /* saving the new company to the database */
             Company.findOne({name: name})
                 .then((company) => {
                     if(company == null) {

@@ -33,7 +33,7 @@ module.exports = {
                 linkedin: linkedin
             });
 
-            /* save the new contact to the database */
+            /* saving the new contact to the database */
             newContact.save()
                 .then(() => {
                     console.log('-=-=-=-=-=-=-=-=-=-=- Creating contact ' + contact.name + ' -=-=-=-=-=-=-=-=-=-=-');
