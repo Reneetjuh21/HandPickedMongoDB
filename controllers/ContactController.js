@@ -1,8 +1,8 @@
-const moment = require('moment')
-var Contact = require('../models/Contact')
-var Company = require('../models/Company')
-const ApiError = require('../models/ApiError')
-const auth = require('../auth/auth')
+const moment = require('moment');
+var Contact = require('../models/Contact');
+var Company = require('../models/Company');
+const ApiError = require('../models/ApiError');
+const auth = require('../auth/auth');
 
 module.exports = {
     create(req, res, next) {
@@ -41,7 +41,7 @@ module.exports = {
                 })
                 .catch((error) => next(new ApiError(error.toString(), 500)))
         } catch (error) {
-            next(new ApiError(error.message, 422))
+            next(new ApiError(error.message, 500))
         }
     },
 

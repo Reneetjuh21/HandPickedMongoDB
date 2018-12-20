@@ -33,7 +33,7 @@ module.exports = {
                 })
                 .catch((error) => next (new ApiError(error.toString)))
         } catch (error) {
-            next(new ApiError(error.message, 422))
+            next(new ApiError(error.message, 500))
         }
     },
 
