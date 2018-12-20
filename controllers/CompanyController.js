@@ -10,11 +10,11 @@ module.exports = {
             assert(req.body.name, 'name must be provided');
             assert(req.body.contact, 'contact must be provided');
 
-            /* making constants with name and contact from the request's body */
+            /* making constants with the items from the request's body */
             const name = req.body.name || '';
             const contact = req.body.contact || '';
 
-            /* creating a company with these constant */
+            /* creating a company with these constants */
             const newCompany = new Company({ name: name, contact: contact});
 
             /* save the new company to the database */
@@ -24,14 +24,14 @@ module.exports = {
                         newCompany.save()
                             .then (() => {
                             console.log('-=-=-=-=-=-=-=-=-=-=- Creating company ' + newCompany.name + ' -=-=-=-=-=-=-=-=-=-=-');
-                            res.status(201).json(newCompany).end()
+                            return res.status(201).json(newCompany).end()
                         })
                         .catch((error) => next(new ApiError(error.toString(), 500)));
                     } else {
                         next(new ApiError('company ' + company + ' already exists'))
                     }
                 })
-                .catch((error) => next (new ApiError(error.toString)
+                .catch((error) => next (new ApiError(error.toString)))
         } catch (error) {
             next(new ApiError(error.message, 422))
         }
