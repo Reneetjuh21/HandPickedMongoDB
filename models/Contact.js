@@ -14,7 +14,7 @@ const ContactSchema = new Schema({
         type: String,
         required: true
     },
-    function: {
+    occupation: {
         type: String,
         required: true
     },
