@@ -60,14 +60,14 @@ module.exports = {
                                 }))
                         })
                         .catch((err) => {
-                            next(new Error('An error occurred while creating the deal, '+ err, 500))
+                            next(new ApiError('An error occurred while creating the deal, '+ err, 500))
                         })
                 } else {
-                    next(new Error('Employee not found, wrong identifier.', 422))
+                    next(new ApiError('Employee not found, wrong identifier.', 422))
                 }
             })
             .catch(() => {
-                next(new Error('Employee not found, wrong identifier.', 422))
+                next(new ApiError('Employee not found, wrong identifier.', 422))
             })
 
 
