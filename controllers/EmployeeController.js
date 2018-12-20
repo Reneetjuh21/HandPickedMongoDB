@@ -17,7 +17,7 @@ module.exports = {
                 if (label !== null && label !== undefined) {
                     label.employees.push(employee)
                     label.save()
-                    Label.findById({labelId})
+                    Label.findById(labelId)
                         .then((label) => res.status(201).json({
                             "message": "Employee has been succesfully added to Label.",
                             "code": 201,
