@@ -1,31 +1,36 @@
 const moment = require('moment')
-var Employee = require('../models/Employee')
+var Label = require('../models/Label')
 const Error = require('../models/ApiError')
 const auth = require('../auth/auth')
 
 module.exports = {
     create(req, res, next){
-        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-        //     if (err) {
-        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-        //         res.status(401).json(error)
-        //     } else {
-        //         token = payload
-        //     }
-        // })
-
+        const labelId = req.body.labelId
         const properties = req.body
-        Employee.create(properties)
-            .then(employee => {
-                res.status(201).json({
-                    "message": "Employee has been succesfully created.",
-                    "code": 201,
-                    "employee": employee
-                })
+        const employee = {
+            "name": properties.name,
+            "email": properties.email
+        }
+
+        Label.findById(labelId)
+            .then((label) => {
+                if (label !== null && label !== undefined) {
+                    label.employees.push(employee)
+                    label.save()
+                    Label.findById({ _id: labelId })
+                        .then((label) => res.status(201).json({
+                            "message": "Employee has been succesfully added to Label.",
+                            "code": 201,
+                            "label": label
+                        }))
+
+                } else {
+                    next(new Error('Label not found, wrong identifier.', 422))
+                }
             })
-        .catch((err) => {
-            next(new Error(err, 500))
-        });
+            .catch(() => {
+                next(new Error('Label not found, wrong identifier.', 422))
+            })
     },
 
     // edit(req, res, next){
@@ -76,10 +81,22 @@ module.exports = {
     //         })
     // },
 
-    get(req, res, next) {
-        Employee.find({})
-            .then((employees) => {
-                res.status(200).json(employees)
+    // get(req, res, next) {
+    //     Employee.find({})
+    //         .then((employees) => {
+    //             res.status(200).json(employees)
+    //         })
+    //         .catch(() => {
+    //             next(new Error('Employees not found, no employees have been posted yet.', 404))
+    //         })
+    // },
+
+    getByLabelId(req, res, next){
+        const labelId = req.params.labelId
+
+        Label.find({_id: labelId})
+            .then((label) => {
+                res.status(200).json(label.employees)
             })
             .catch(() => {
                 next(new Error('Employees not found, no employees have been posted yet.', 404))

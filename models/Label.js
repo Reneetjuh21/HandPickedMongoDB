@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Employee = require('./Employee')
 const Schema = mongoose.Schema
 
 const LabelSchema = new Schema({
@@ -9,7 +10,10 @@ const LabelSchema = new Schema({
     },
     apiaccesstoken: {
         type: String
-    }
+    },
+    employees: [{
+        type: Employee
+    }]
 })
 
 module.exports = mongoose.model('label', LabelSchema)

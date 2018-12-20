@@ -2,11 +2,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const EmployeeSchema = new Schema({
-    label: {
-        type: Schema.Types.ObjectId, 
-        ref: 'label',
-        required: true
-    },
     name: {
         type: String,
         required: true
@@ -24,4 +19,4 @@ const EmployeeSchema = new Schema({
     }]
 })
 
-module.exports = mongoose.model('employee', EmployeeSchema)
+module.exports = EmployeeSchema
