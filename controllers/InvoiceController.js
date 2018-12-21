@@ -1,31 +1,31 @@
-const moment = require('moment')
-var Invoice = require('../models/Invoice')
-const Error = require('../models/ApiError')
-const auth = require('../auth/auth')
+const moment = require('moment');
+var Invoice = require('../models/Invoice');
+const ApiError = require('../models/ApiError');
+const auth = require('../auth/auth');
 
 module.exports = {
     create(req, res, next){
-        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-        //     if (err) {
-        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-        //         res.status(401).json(error)
-        //     } else {
-        //         token = payload
-        //     }
-        // })
+        try{
+            /* validation */
+            assert(req.body.date, 'date must be provided');
+            assert(req.body.status, 'status must be provided');
+            assert(req.body.version, 'version must be provided');
 
-        const properties = req.body
-        Invoice.create(properties)
-            .then(invoice => {
-                res.status(201).json({
-                    "message": "Invoice has been succesfully created.",
-                    "code": 201,
-                    "invoice": invoice
+            /* making constants with the items from the request's body */
+            const date = req.body.date || '';
+            const status = req.body.status || '';
+            const version = req.body.version || '';
+
+            /* creating an invoice with these constants and saving it to the database */
+            Invoice.create({ date: date, status: status, version: version })
+                .then(invoice => {
+                    console.log('-=-=-=-=-=-=-=-=-=-=- Creating invoice -=-=-=-=-=-=-=-=-=-=-');
+                    return res.status(201).json(invoice).end();
                 })
-            })
-        .catch((err) => {
-            next(new Error(err, 500))
-        });
+                .catch((error) => next(new ApiError(error.toString(), 500)));
+        } catch (error) {
+            next(new ApiError(error.message, 500))
+        }
     },
 
     // edit(req, res, next){

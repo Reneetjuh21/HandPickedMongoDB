@@ -9,8 +9,7 @@ const CompanySchema = new Schema({
         unique: true
     },
     contacts: [{
-        type: Contact,
-        required: true
+        type: Contact
     }]
 
 })

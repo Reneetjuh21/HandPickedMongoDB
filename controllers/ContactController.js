@@ -1,40 +1,50 @@
-const moment = require('moment')
-var Contact = require('../models/Contact')
-var Company = require('../models/Company')
-const Error = require('../models/ApiError')
-const auth = require('../auth/auth')
+const moment = require('moment');
+var Contact = require('../models/Contact');
+var Company = require('../models/Company');
+const ApiError = require('../models/ApiError');
+const auth = require('../auth/auth');
 
 module.exports = {
-    create(req, res, next){
-        const companyId = req.body.companyId
-        const properties = req.body
-        const contact = {
-            "name": properties.name,
-            "phonenumber": properties.phonenumber,
-            "email": properties.email,
-            "employee": properties.employee
-        }
+    create(req, res, next) {
+        try {
+            /* validation */
+            assert(req.body.name, 'name must be provided');
+            assert(req.body.phonenumber, 'phonenumber must be provided');
+            assert(req.body.email, 'email must be provided');
+            assert(req.body.occupation, 'function must be provided');
+            assert(req.body.employee, 'employee must be provided');
+            assert(req.body.linkedin, 'phonenumber must be provided');
 
-        Company.findById(companyId)
-            .then((company) => {
-                if (company !== null && company !== undefined){
-                    company.contacts.push(contact)
-                    company.save()
-                    Company.findById({ _id: companyId })
-                        .then((company) => res.status(201).json({
-                            "message": "Contact has been succesfully added to Company.",
-                            "code": 201,
-                            "company": company
-                        }))
-                          
-                } else {
-                    next(new Error('Company not found, wrong identifier.', 422))
-                }
-            })
-            .catch(() => {
-                next(new Error('Company not found, wrong identifier.', 422))
-            })
+            /* making constants with the items from the request's body */
+            const name = req.body.name || '';
+            const phonenumber = req.body.phonenumber || '';
+            const email = req.body.email || '';
+            const occupation = req.body.occupation || '';
+            const employee = req.body.employee || '';
+            const linkedin = req.body.linkedin || '';
+
+            /* creating a contact with these constants */
+            const newContact = new Contact({
+                name: name,
+                phonenumber: phonenumber,
+                email: email,
+                occupation: occupation,
+                employee: employee,
+                linkedin: linkedin
+            });
+
+            /* saving the new contact to the database */
+            newContact.save()
+                .then(() => {
+                    console.log('-=-=-=-=-=-=-=-=-=-=- Creating contact ' + contact.name + ' -=-=-=-=-=-=-=-=-=-=-');
+                    return res.status(201).json(newContact).end();
+                })
+                .catch((error) => next(new ApiError(error.toString(), 500)))
+        } catch (error) {
+            next(new ApiError(error.message, 500))
+        }
     },
+
 
     // edit(req, res, next){
     //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {

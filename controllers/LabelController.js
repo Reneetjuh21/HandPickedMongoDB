@@ -1,31 +1,28 @@
-const moment = require('moment')
-var Label = require('../models/Label')
-const Error = require('../models/ApiError')
-const auth = require('../auth/auth')
+const moment = require('moment');
+var Label = require('../models/Label');
+const ApiError = require('../models/ApiError');
+const auth = require('../auth/auth');
 
 module.exports = {
     create(req, res, next){
-        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-        //     if (err) {
-        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-        //         res.status(401).json(error)
-        //     } else {
-        //         token = payload
-        //     }
-        // })
+        try{
+            /* validation */
+            assert(req.body.name, 'name must be provided');
 
-        const properties = req.body
-        Label.create(properties)
-            .then(label => {
-                res.status(201).json({
-                    "message": "Label has been succesfully created.",
-                    "code": 201,
-                    "label": label
+            /* making constants with the items from the request's body */
+            const name = req.body.name || '';
+
+            /* creating an invoice with these constants and saving it to the database */
+            Label.create({ name: name })
+                .then(label => {
+                    console.log('-=-=-=-=-=-=-=-=-=-=- Creating invoice -=-=-=-=-=-=-=-=-=-=-');
+                    return res.status(201).json(label).end();
                 })
-            })
-        .catch((err) => {
-            next(new Error(err, 500))
-        });
+                .catch((error) => next(new ApiError(error.toString(), 500)));
+
+        } catch (error) {
+            next(new ApiError(error.message, 500))
+        }
     },
 
     // edit(req, res, next){

@@ -1,32 +1,40 @@
-const moment = require('moment')
-var Company = require('../models/Company')
-const Error = require('../models/ApiError')
-const auth = require('../auth/auth')
+const moment = require('moment');
+var Company = require('../models/Company');
+const ApiError = require('../models/ApiError');
+const auth = require('../auth/auth');
 
 module.exports = {
     create(req, res, next){
-        // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-        //     if (err) {
-        //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-        //         res.status(401).json(error)
-        //     } else {
-        //         token = payload
-        //     }
-        // })
+        try {
+            /* validation */
+            assert(req.body.name, 'name must be provided');
+            assert(req.body.contact, 'contact must be provided');
 
-        const properties = req.body
+            /* making constants with the items from the request's body */
+            const name = req.body.name || '';
+            const contact = req.body.contact || '';
 
-        Company.create(properties)
-            .then(company => {
-                res.status(201).json({
-                    "message": "Company has been succesfully created.",
-                    "code": 201,
-                    "company": company
+            /* creating a company with these constants */
+            const newCompany = new Company({ name: name, contact: contact});
+
+            /* saving the new company to the database */
+            Company.findOne({name: name})
+                .then((company) => {
+                    if(company == null) {
+                        newCompany.save()
+                            .then (() => {
+                            console.log('-=-=-=-=-=-=-=-=-=-=- Creating company ' + newCompany.name + ' -=-=-=-=-=-=-=-=-=-=-');
+                            return res.status(201).json(newCompany).end()
+                        })
+                        .catch((error) => next(new ApiError(error.toString(), 500)));
+                    } else {
+                        next(new ApiError('company ' + company + ' already exists'))
+                    }
                 })
-            })
-        .catch((err) => {
-            next(new Error(err, 500))
-        });
+                .catch((error) => next (new ApiError(error.toString)))
+        } catch (error) {
+            next(new ApiError(error.message, 500))
+        }
     },
 
     // edit(req, res, next){
