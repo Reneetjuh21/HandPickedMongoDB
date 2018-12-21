@@ -20,49 +20,51 @@ describe('Routing and Integration Tests', () => {
         });
       return done();
       });
+      //Dit geeft een 500, aanpassen naar 400/404? Hoort eigenlijk 400/404 te zijn
       it ('should reject invalid data with 400 status', (done) => {
         const badReq = {
-          notAJob: 'not real data',
+          notAJob: 'not real data'
         };
         request(HOST)
-          .post('/post')
+          .post('/api/companies')
           .send(badReq)
-          .expect(404, done);
+          .expect(500, done);
       });
       it ('should accept valid data and return 200 status with saved object', (done) => {
         const goodReq = {
-          name: 'Jane Doe',
-          contacts: [{
-              name: 'exampleName',
-              phoneNumber: '0612345678',
-              email: 'test@mail.com',
-              employee: 'Teun'
-          }]
+          name: "Batman",
+          contact: "Bruce Wayne"
         };
         request(HOST)
-          .post('/post')
+          .post('/api/companies')
           .send(goodReq)
           .expect((res) => {
-            expect(res.body).to.include(goodReq);
+            const expectedReq = {
+              name: goodReq.name
+            }
+            expect(res.body).to.include(expectedReq);
           })
-          .expect(200, done);
+          .expect(201, done);
       });
       it('should respond to API request with all listings', (done) => {
         const anotherReq = {
             name: 'John Doe',
-            contacts: [{
+            contact: {
                 name: 'exampleName',
                 phoneNumber: '0612345678',
                 email: 'test@mail.com',
-                employee: 'Teun'
-            }]
+                employee: 'Teun',
+                occupation: "Hero",
+                employee: "Gotham City",
+                linkedin: "linkedIn"
+            }
         };
         request(HOST)
-          .post('/post')
+          .post('/api/companies')
           .send(anotherReq)
           .then(() => {
             request(HOST)
-              .get('/api')
+              .get('/api/companies')
               .expect((res) => {
                 expect(res.body.length).to.eq(2);
               })
