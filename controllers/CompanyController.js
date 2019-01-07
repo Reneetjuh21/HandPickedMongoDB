@@ -9,7 +9,6 @@ module.exports = {
         try {
             /* validation */
             assert(req.body.name, 'name must be provided');
-            assert(req.body.contact, 'contact must be provided');
 
             /* making constants with the items from the request's body */
             const name = req.body.name || '';
