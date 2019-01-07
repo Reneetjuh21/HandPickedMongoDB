@@ -3,6 +3,7 @@ var Contact = require('../models/Contact');
 var Company = require('../models/Company');
 const ApiError = require('../models/ApiError');
 const auth = require('../auth/auth');
+const assert = require('assert');
 
 module.exports = {
     create(req, res, next) {
@@ -36,7 +37,7 @@ module.exports = {
             /* saving the new contact to the database */
             newContact.save()
                 .then(() => {
-                    console.log('-=-=-=-=-=-=-=-=-=-=- Creating contact ' + contact.name + ' -=-=-=-=-=-=-=-=-=-=-');
+                    console.log('-=-=-=-=-=-=-=-=-=-=- Creating contact -=-=-=-=-=-=-=-=-=-=-');
                     return res.status(201).json(newContact).end();
                 })
                 .catch((error) => next(new ApiError(error.toString(), 500)))

@@ -2,13 +2,13 @@ const moment = require('moment');
 var Company = require('../models/Company');
 const ApiError = require('../models/ApiError');
 const auth = require('../auth/auth');
+const assert = require('assert')
 
 module.exports = {
     create(req, res, next){
         try {
             /* validation */
             assert(req.body.name, 'name must be provided');
-            assert(req.body.contact, 'contact must be provided');
 
             /* making constants with the items from the request's body */
             const name = req.body.name || '';

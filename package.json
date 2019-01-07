@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 20000 ./test/controllers",
+    "test": "mocha --timeout 20000 ./test",
     "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "assert": "^1.4.1",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
@@ -21,6 +22,8 @@
     "mongoose": "^5.3.14",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.7",
+    "sinon": "^7.2.2",
+    "sinon-mongoose": "^2.2.1",
     "supertest": "^3.3.0",
     "tracer": "^0.9.6"
   }
