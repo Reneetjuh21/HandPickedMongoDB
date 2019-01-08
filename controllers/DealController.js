@@ -3,6 +3,7 @@ const Deal = require('../models/Deal');
 const Employee = require('../models/Employee');
 const ApiError = require('../models/ApiError');
 const auth = require('../auth/auth');
+const assert = require('assert')
 
 module.exports = {
     create(req, res, next){

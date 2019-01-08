@@ -105,6 +105,21 @@ module.exports = {
             })
     },
 
+    getByEmail(req, res, next) {
+        const contactsEmail = req.params.email
+        Contact.findById(contactsEmail)
+            .then((contacts) => {
+                if (contacts !== null){
+                    res.status(200).json(contacts)
+                } else {
+                    next(new Error('Contact not found, wrong identifier.', 422))
+                }
+            })
+            .catch(() => {
+                next(new Error('Contact not found, wrong identifier.', 422))
+            })
+    },
+
     getById(req, res, next) {
         const contactsId = req.params.id
         Contact.findById(contactsId)

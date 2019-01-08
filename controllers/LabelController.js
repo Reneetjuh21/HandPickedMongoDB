@@ -2,6 +2,7 @@ const moment = require('moment');
 var Label = require('../models/Label');
 const ApiError = require('../models/ApiError');
 const auth = require('../auth/auth');
+const assert = require('assert');
 
 module.exports = {
     create(req, res, next){
