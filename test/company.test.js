@@ -10,16 +10,6 @@ const HOST = `http://localhost:${PORT}`;
 //const Company = require('../models/Company');
 
 describe('Routing and Integration Tests', () => {
-  describe('Controller Tests', () => {
-    describe('CompanyController', () => {
-      before((done) => {
-        mongoose.connect('mongodb://localhost/HandPicked', function(){
-            mongoose.connection.db.dropDatabase(() => {
-                console.log('Cleaning - test database dropped');
-                });
-        });
-      return done();
-      });
       //Dit geeft een 500, aanpassen naar 400/404? Hoort eigenlijk 400/404 te zijn
       it ('should reject invalid data with 400 status', (done) => {
         const badReq = {
@@ -66,17 +56,9 @@ describe('Routing and Integration Tests', () => {
             request(HOST)
               .get('/api/companies')
               .expect((res) => {
-                expect(res.body.length).to.eq(2);
+                expect(res.body.length).to.eq(1);
               })
               .expect(200, done);
           });
-      });   
-      
-      after(() => {
-        mongoose.connection.close(() => {
-          console.log('Test database connection closed');
-        });
       });
-    });
-  });
 });
