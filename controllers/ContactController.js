@@ -95,18 +95,18 @@ module.exports = {
     //         })
     // },
 
-    get(req, res, next) {
-        Contact.find({})
-            .then((contacts) => {
-                res.status(200).json(contacts)
-            })
-            .catch(() => {
-                next(new Error('Contacts not found, no contacts have been posted yet.', 404))
-            })
-    },
+    // get(req, res, next) {
+    //     Contact.find({})
+    //         .then((contacts) => {
+    //             res.status(200).json(contacts)
+    //         })
+    //         .catch(() => {
+    //             next(new Error('Contacts not found, no contacts have been posted yet.', 404))
+    //         })
+    // },
 
     getByEmail(req, res, next) {
-        const contactsEmail = req.params.email
+        const contactsEmail = req.query.email
         Contact.findById(contactsEmail)
             .then((contacts) => {
                 if (contacts !== null){
