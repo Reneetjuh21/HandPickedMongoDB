@@ -19,7 +19,7 @@ module.exports = {
             const email = req.body.email || '';
 
             /* creating an employee with these constants */
-            const newEmployee = new Employee ({ name: name, email: email });
+            const newEmployee = { name: name, email: email };
 
             /* further preparation */
             const labelId = req.params.id;
