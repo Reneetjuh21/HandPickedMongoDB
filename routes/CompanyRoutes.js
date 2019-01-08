@@ -7,5 +7,6 @@ router.post('/companies', company_controller.create)
 // router.delete('/concerts', company_controller.delete)
 router.get('/companies', company_controller.get)
 router.get('/companies/:id', company_controller.getById)
+router.get('/companies/:name', company_controller.getByName)
 
 module.exports = router;

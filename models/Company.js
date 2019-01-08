@@ -9,7 +9,8 @@ const CompanySchema = new Schema({
         unique: true
     },
     contacts: [{
-        type: Contact
+        type: Schema.Types.ObjectId,
+        ref: 'contact'
     }]
 
 })
