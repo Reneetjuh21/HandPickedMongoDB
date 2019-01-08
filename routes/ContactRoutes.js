@@ -7,5 +7,6 @@ router.post('/contacts', contact_controller.create)
 // router.delete('/concerts', contact_controller.delete)
 router.get('/contacts', contact_controller.get)
 router.get('/contacts/:id', contact_controller.getById)
+router.get('/contacts/:email', contact_controller.getByEmail)
 
 module.exports = router;

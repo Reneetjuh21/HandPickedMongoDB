@@ -1,8 +1,10 @@
 const moment = require('moment');
-var Label = require('../models/Label');
+const Label = require('../models/Label');
 const Employee = require('../models/Employee');
 const ApiError = require('../models/ApiError');
 const auth = require('../auth/auth');
+const assert = require('assert');
+
 
 module.exports = {
     create(req, res, next){
@@ -105,14 +107,17 @@ module.exports = {
     // },
 
     getByLabelId(req, res, next){
-        const labelId = req.params.labelId
-
-        Label.find({_id: labelId})
-            .then((label) => {
-                res.status(200).json(label.employees)
+        const labelsId = req.params.id
+        Label.findById(labelsId)
+            .then((labels) => {
+                if (labels !== null){
+                    res.status(200).json(labels.employees)
+                } else {
+                    next(new Error('Label not found, wrong identifier.', 422))
+                }
             })
             .catch(() => {
-                next(new Error('Employees not found, no employees have been posted yet.', 404))
+                next(new Error('Label not found, wrong identifier.', 422))
             })
     },
 
@@ -123,11 +128,11 @@ module.exports = {
                 if (employee !== null){
                     res.status(200).json(employee)
                 } else {
-                    next(new Error('Employee not found, wrong identifier.', 422))
+                    next(new ApiError('Employee not found, wrong identifier.', 422))
                 }
             })
             .catch(() => {
-                next(new Error('Employee not found, wrong identifier.', 422))
+                next(new ApiError('Employee not found, wrong identifier.', 422))
             })
     }
 }

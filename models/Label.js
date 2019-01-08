@@ -12,7 +12,8 @@ const LabelSchema = new Schema({
         type: String
     },
     employees: [{
-        type: Employee
+        type: Schema.Types.ObjectId,
+        ref: 'employee',
     }]
 })
 
