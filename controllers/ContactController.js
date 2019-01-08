@@ -89,43 +89,42 @@ module.exports = {
             })
     },
 
-    // get(req, res, next) {
-    //     Contact.find({})
-    //         .then((contacts) => {
-    //             res.status(200).json(contacts)
-    //         })
-    //         .catch(() => {
-    //             next(new Error('Contacts not found, no contacts have been posted yet.', 404))
-    //         })
-    // },
-
-    getByEmail(req, res, next) {
+    get(req, res, next) {
         const contactsEmail = req.query.email
-        Contact.findById(contactsEmail)
-            .then((contacts) => {
-                if (contacts !== null){
-                    res.status(200).json(contacts)
-                } else {
-                    next(new Error('Contact not found, wrong identifier.', 422))
-                }
-            })
-            .catch(() => {
-                next(new Error('Contact not found, wrong identifier.', 422))
-            })
-    },
+        const contactsId = req.query.id
 
-    getById(req, res, next) {
-        const contactsId = req.params.id
-        Contact.findById(contactsId)
-            .then((contacts) => {
-                if (contacts !== null){
-                    res.status(200).json(contacts)
-                } else {
+        if(contactsId !== null && contactsId !== undefined){
+            Contact.findById(contactsId)
+                .then((contacts) => {
+                    if (contacts !== null) {
+                        res.status(200).json(contacts)
+                    } else {
+                        next(new Error('Contact not found, wrong identifier.', 422))
+                    }
+                })
+                .catch(() => {
                     next(new Error('Contact not found, wrong identifier.', 422))
-                }
-            })
-            .catch(() => {
-                next(new Error('Contact not found, wrong identifier.', 422))
-            })
+                })
+        } else if (contactsEmail !== null && contactsEmail !== undefined){
+            Contact.findOne({email: contactsEmail})
+                .then((contacts) => {
+                    if (contacts !== null) {
+                        res.status(200).json(contacts)
+                    } else {
+                        next(new Error('Contact not found, wrong identifier.', 422))
+                    }
+                })
+                .catch(() => {
+                    next(new Error('Contact not found, wrong identifier.', 422))
+                })
+        } else {
+            Contact.find({})
+                .then((contacts) => {
+                    res.status(200).json(contacts)
+                })
+                .catch(() => {
+                    next(new Error('Contacts not found, no contacts have been posted yet.', 404))
+                })
+        }
     }
 }
