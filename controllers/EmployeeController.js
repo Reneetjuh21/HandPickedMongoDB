@@ -77,7 +77,7 @@ module.exports = {
                         label.save();
                         Label.findById(labelId)
                             .then((label) => res.status(201).json({
-                                "message": "Employee has been succesfully added to Label.",
+                                "message": "Employee has been succesfully edited.",
                                 "code": 201,
                                 "label": label
                             }))
@@ -94,28 +94,41 @@ module.exports = {
         }
     },
 
-    // delete(req, res, next) {
-    //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-    //     //     if (err) {
-    //     //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-    //     //         res.status(401).json(error)
-    //     //     } else {
-    //     //         token = payload
-    //     //     }
-    //     // })
+    delete(req, res, next) {
+        try {
+            /* validation */
+            assert(req.params.labelId, 'labelId must be provided');
+            assert(req.params.employeeId, 'employeeId must be provided');
 
-    //     const employeeId = req.query.id
+            const labelId = req.params.labelId
+            const employeeId = req.params.employeeId
 
-    //     Employee.findOneAndDelete({ _id: employeeId})
-    //         .then(() => res.status(200).json({
-    //             "message": "Employee has been succesfully deleted.",
-    //             "code": 200,
-    //             "employeeId": employeeId
-    //         }))
-    //         .catch((err) => {
-    //             next(new Error(err, 422))
-    //         })
-    // },
+            Label.findById({ _id: labelId })
+                .then((label) => {
+                    if (label !== null && label !== undefined) {
+                        const employee = label.employees.id(employeeId);
+
+                        employee.remove()
+
+                        label.save();
+                        Label.findById(labelId)
+                            .then((label) => res.status(201).json({
+                                "message": "Employee has been succesfully deleted to Label.",
+                                "code": 201,
+                                "label": label
+                            }))
+                    } else {
+                        next(new ApiError('Label not found, wrong identifier.', 422))
+                    }
+                })
+                .catch((err) => {
+                    next(new Error(err, 422))
+                })
+        }
+        catch (error) {
+            next(new ApiError(error.message, 500))
+        }
+    },
 
     getByLabelId(req, res, next){
         const labelsId = req.params.id
