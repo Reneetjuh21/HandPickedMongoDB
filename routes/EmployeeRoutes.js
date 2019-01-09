@@ -6,6 +6,6 @@ router.post('/employees/:id', employee_controller.create)
 // router.put('/concerts', employee_controller.edit)
 // router.delete('/concerts', employee_controller.delete)
 router.get('/employees/:id', employee_controller.getByLabelId)
-// router.get('/employees/:id', employee_controller.getById)
+//router.get('/employee/:id', employee_controller.getById)
 
 module.exports = router;
