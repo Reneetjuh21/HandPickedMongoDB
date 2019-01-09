@@ -2,6 +2,7 @@ const request = require('supertest');
 const app = require('../index');
 const expect = require('chai').expect;
 const mongoose = require('mongoose');
+const Label = require('../models/Label')
 
 const PORT = process.env.PORT || 3000;
 const HOST = `http://localhost:${PORT}`;
@@ -15,28 +16,42 @@ describe('DealsController', () => {
     //
     // });
     it ('should accept valid data and return 200 status with saved object', (done) => {
+        const Emplyee = {
+            name: "Batman",
+            email: "batman@batcave.com"
+        }
+
         const Deal = {
-            title: "Batman",
-            deadline: "12/12/2018/12:12:0",
-            percentage: "12",
-            sum: "12",
-            company: {
-                name: 'John Doe',
-            },
-            description: "Deal",
-            valuta: "euro"
+            deals: {
+                title: "Batmobile",
+                deadline: "12/12/2018/12:12:0",
+                percentage: "12",
+                sum: "12",
+                company: {
+                    name: 'John Doe',
+                },
+                description: "Deal",
+                valuta: "euro"
+            }
+
         };
         request(HOST)
-            .post('/api/deals')
-            .send(Deal)
-            .expect((res) => {
-                const expectedReq = {
-                    name: Deal.name
-                }
-                expect(res.body).to.include(expectedReq);
-            })
-            .expect(201, done);
-    });
+            .post('/api/labels')
+            .send({name: "Test2"})
+            .end(() => {
+                Label.getOne({name: "Test2"})
+                    .then()
+        })
+            // .post('/api/deals')
+            // .send(Deal)
+            // .expect((res) => {
+            //     const expectedReq = {
+            //         name: Deal.name
+            //     }
+            //     expect(res.body).to.include(expectedReq);
+            // })
+            // .expect(201, done);
+    })
     // it('should respond to API request with all listings', (done) => {
     //
     // });
