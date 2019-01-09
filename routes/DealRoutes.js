@@ -1,11 +1,26 @@
+/*
+    DealRoutes.js - Routing the requests for deals
+ */
+
+/* Requiring the necessary libraries and assets */
 const deal_controller = require('../controllers/DealController');
 const express = require('express');
+
+/* Creating the express router */
 const router = express.Router();
 
-router.post('/deals', deal_controller.create)
+/* The POST deal request */
+router.post('/deals', deal_controller.create);
+
+//TODO - CLEANUP?
 // router.put('/concerts', deal_controller.edit)
 // router.delete('/concerts', deal_controller.delete)
-router.get('/deals', deal_controller.get)
-router.get('/deals/:id', deal_controller.getById)
 
+/* The GET all deals request */
+router.get('/deals', deal_controller.get);
+
+/* The GET deal request */
+router.get('/deals/:id', deal_controller.getById);
+
+/* Exporting the routes so they can be used by the other classes */
 module.exports = router;
