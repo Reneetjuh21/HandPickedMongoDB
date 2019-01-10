@@ -1,12 +1,26 @@
+/*
+    ContactRoutes.js - Routing the requests for contacts
+ */
+
+/* Requiring the necessary libraries and assets */
 const contact_controller = require('../controllers/ContactController');
 const express = require('express');
+
+/* Creating the express router */
 const router = express.Router();
 
-router.post('/contacts', contact_controller.create)
-// router.put('/concerts', contact_controller.edit)
-// router.delete('/concerts', contact_controller.delete)
-router.get('/contacts', contact_controller.get)
-router.get('/contacts/:id', contact_controller.getById)
-router.get('/contacts/:email', contact_controller.getByEmail)
+/* The POST contact request */
+router.post('/contacts', contact_controller.create);
 
+/* The PUT contact request */
+router.put('/contacts/:id', contact_controller.edit);
+
+/* The DELETE contact request */
+router.delete('/contacts/:id', contact_controller.delete);
+
+/* The GET all contacts request */
+router.get('/contacts', contact_controller.get);
+
+
+/* Exporting the routes so they can be used by the other classes */
 module.exports = router;
