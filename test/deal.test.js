@@ -21,7 +21,7 @@ describe('DealsController', () => {
     // it ('should reject invalid data with 400 status', (done) => {
     //
     // });
-    it ('Should return a deal when posting a valid object', (done) => {
+    xit ('Should return a deal when posting a valid object', (done) => {
         request(HOST)
             .post('/api/labels')
             .send({name: "Test2"})
