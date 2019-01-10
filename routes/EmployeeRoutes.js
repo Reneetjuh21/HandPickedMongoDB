@@ -1,11 +1,25 @@
+/*
+   EmployeeRoutes.js - Routing the requests for employees
+ */
+
+/* Requiring the necessary libraries and assets */
 const employee_controller = require('../controllers/EmployeeController');
 const express = require('express');
+
+/* Creating the express router */
 const router = express.Router();
 
-router.post('/employees/:id', employee_controller.create)
-// router.put('/concerts', employee_controller.edit)
-// router.delete('/concerts', employee_controller.delete)
-router.get('/employees/:id', employee_controller.getByLabelId)
-//router.get('/employee/:id', employee_controller.getById)
+/* The POST employee request */
+router.post('/employees/:id', employee_controller.create);
 
+/* The PUT employee request */
+router.put('/employees/:labelId/:employeeId', employee_controller.edit);
+
+/* The DELETE employee request */
+router.delete('/employees/:labelId/:employeeId', employee_controller.delete);
+
+/* The GET employee by id request */
+router.get('/employees/:id', employee_controller.getByLabelId);
+
+/* Exporting the routes so they can be used by the other classes */
 module.exports = router;

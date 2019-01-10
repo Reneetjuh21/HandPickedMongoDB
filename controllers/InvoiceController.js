@@ -29,53 +29,42 @@ module.exports = {
         }
     },
 
-    // edit(req, res, next){
-    //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-    //     //     if (err) {
-    //     //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-    //     //         res.status(401).json(error)
-    //     //     } else {
-    //     //         token = payload
-    //     //     }
-    //     // })
+    edit(req, res, next){
 
-    //     const invoiceId = req.body.id
-    //     const properties = req.body
+        /* validation */
+        assert(req.body.date, 'date must be provided');
+        assert(req.body.status, 'status must be provided');
+        assert(req.body.version, 'version must be provided');
 
-    //     Invoice.findByIdAndUpdate({ _id: invoiceId }, properties)
-    //         .then(() => Invoice.findById({ _id: invoiceId}))
-    //         .then((invoice) => res.status(200).json({
-    //             "message": "Invoice has been succesfully edited.",
-    //             "code": 200,
-    //             "invoice": invoice
-    //         }))
-    //         .catch(() => {
-    //             next(new Error('Invoice not found, wrong identifier.', 422))
-    //         })
-    // },
+        const invoiceId = req.body.id
+        const properties = req.body
 
-    // delete(req, res, next) {
-    //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-    //     //     if (err) {
-    //     //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-    //     //         res.status(401).json(error)
-    //     //     } else {
-    //     //         token = payload
-    //     //     }
-    //     // })
+        Invoice.findByIdAndUpdate({ _id: invoiceId }, properties)
+            .then(() => Invoice.findById({ _id: invoiceId}))
+            .then((invoice) => res.status(200).json({
+                "message": "Invoice has been succesfully edited.",
+                "code": 200,
+                "invoice": invoice
+            }))
+            .catch(() => {
+                next(new Error('Invoice not found, wrong identifier.', 422))
+            })
+    },
 
-    //     const invoiceId = req.query.id
+    delete(req, res, next) {
 
-    //     Invoice.findOneAndDelete({ _id: invoiceId})
-    //         .then(() => res.status(200).json({
-    //             "message": "Invoice has been succesfully deleted.",
-    //             "code": 200,
-    //             "invoiceId": invoiceId
-    //         }))
-    //         .catch((err) => {
-    //             next(new Error(err, 422))
-    //         })
-    // },
+        const invoiceId = req.params.id
+
+        Invoice.findOneAndDelete({ _id: invoiceId})
+            .then(() => res.status(200).json({
+                "message": "Invoice has been succesfully deleted.",
+                "code": 200,
+                "invoiceId": invoiceId
+            }))
+            .catch((err) => {
+                next(new Error(err, 422))
+            })
+    },
 
     get(req, res, next) {
         Invoice.find({})

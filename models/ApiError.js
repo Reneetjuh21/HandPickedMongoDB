@@ -1,6 +1,6 @@
-//
-// General Api errorhandling class
-//
+/*
+    ApiError.js - general api errorhandling
+*/
 'use strict';
 
 class ApiError {
@@ -13,4 +13,5 @@ class ApiError {
 
 }
 
+/* export the class for use elsewhere */
 module.exports = ApiError;
