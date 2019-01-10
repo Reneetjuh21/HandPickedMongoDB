@@ -9,10 +9,14 @@ const express = require('express');
 /* Creating the express router */
 const router = express.Router();
 
-router.post('/contacts', contact_controller.create)
-router.put('/contacts/:id', contact_controller.edit)
-router.delete('/contacts/:id', contact_controller.delete)
-router.get('/contacts', contact_controller.get)
+/* The POST contact request */
+router.post('/contacts', contact_controller.create);
+
+/* The PUT contact request */
+router.put('/contacts/:id', contact_controller.edit);
+
+/* The DELETE contact request */
+router.delete('/contacts/:id', contact_controller.delete);
 
 /* The GET all contacts request */
 router.get('/contacts', contact_controller.get);
