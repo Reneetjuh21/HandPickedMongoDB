@@ -47,7 +47,7 @@ app.use('/api', dealRoutes);
 /* catch all non-existing endpoint requests and report a 404 error */
 app.use('*', function (req, res, next) {
     // logger.error('Non-existing endpoint')
-    const error = new ApiError('Non-existing endpoint', 404)
+    const error = new ApiError('Non-existing endpoint', 404);
     next(error)
 });
 
