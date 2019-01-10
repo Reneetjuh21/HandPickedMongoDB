@@ -120,6 +120,19 @@ module.exports = {
                 .catch(() => {
                     next(new Error('Deals not found, wrong identifier.', 422))
                 })
+        } else if (req.query.title) {
+            const t = req.query.title
+            Deal.find({ title: t })
+                .then((deals) => {
+                    if (deals !== null) {
+                        res.status(200).json(deals)
+                    } else {
+                        next(new Error('Deals not found, wrong identifier.', 422))
+                    }
+                })
+                .catch(() => {
+                    next(new Error('Deals not found, wrong identifier.', 422))
+                })
         } else {
             Deal.find({})
                 .then((deals) => {
