@@ -21,7 +21,7 @@ describe('DealsController', () => {
     // it ('should reject invalid data with 400 status', (done) => {
     //
     // });
-    xit ('Should return a deal when posting a valid object', (done) => {
+    it ('Should return a deal when posting a valid object', (done) => {
         request(HOST)
             .post('/api/labels')
             .send({name: "Test2"})
@@ -44,6 +44,7 @@ describe('DealsController', () => {
                                             .end(() => {
                                                 Label.findById(newLabel._id)
                                                     .then((newEmployee) => {
+                                                        console.log(newEmployee)
                                                         const idFromEmplyee = newEmployee.employees.pop()._id
                                                         console.log(idFromEmplyee)
                                                         request(HOST)
