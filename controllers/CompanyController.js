@@ -1,5 +1,6 @@
 const moment = require('moment');
 var Company = require('../models/Company');
+var Domain = require('../models/Domain');
 const ApiError = require('../models/ApiError');
 const auth = require('../auth/auth');
 const assert = require('assert')
@@ -35,6 +36,43 @@ module.exports = {
         } catch (error) {
             next(new ApiError(error.message, 500))
         }
+    },
+
+    createDomainName(req, res, next){
+        const domainName = req.body.domain;
+        const companyName = req.body.company;
+
+        const newDomain = new Domain({ name: domainName});
+
+        Company.findOne({name: companyName})
+            .then((company) => {
+                if(company != null) {
+                    Domain.findOne({name: domainName})
+                        .then((domain) => {
+                            if(domain == null){
+                                newDomain.save();
+                                company.domains.push(domainName);
+                                company.save();
+                                res.status(200).send({Message:"Domain name has been saved"})
+
+                            }else{
+                                res.status(501).send({Message:"Domain already exist"})
+                            }
+                        })
+                        .catch(next)
+                }else{
+                    res.status(501).send({Message:"Domain name not included"})
+                }
+            })
+            .catch(next)
+
+
+        //but how do i know the company the user is in??????
+        //find the company that the user is logged in with
+        //check if the domain name is already taken
+        //push the domain name in the company
+
+
     },
 
     // edit(req, res, next){

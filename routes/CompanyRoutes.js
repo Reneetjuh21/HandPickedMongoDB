@@ -12,6 +12,8 @@ const router = express.Router();
 /* The POST company request */
 router.post('/companies', company_controller.create);
 
+router.post('/domainname', company_controller.createDomainName)
+
 //TODO - CLEANUP?
 // router.put('/concerts', company_controller.edit)
 // router.delete('/concerts', company_controller.delete)
