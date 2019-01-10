@@ -27,12 +27,12 @@ module.exports = {
     },
 
     edit(req, res, next){
-
         /* validation */
         assert(req.params.id, 'labelId must be provided');
         assert(req.body.name, 'name must be provided');
 
-        const labelId = req.params.id;
+        const labelId = req.params.id
+        const properties = req.body
 
         Label.findByIdAndUpdate({ _id: labelId }, properties)
             .then(() => Label.findById({ _id: labelId}))
@@ -47,7 +47,6 @@ module.exports = {
     },
 
     delete(req, res, next) {
-
         const labelId = req.params.id
 
         Label.findOneAndDelete({ _id: labelId})
