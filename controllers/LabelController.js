@@ -26,53 +26,39 @@ module.exports = {
         }
     },
 
-    // edit(req, res, next){
-    //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-    //     //     if (err) {
-    //     //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-    //     //         res.status(401).json(error)
-    //     //     } else {
-    //     //         token = payload
-    //     //     }
-    //     // })
+    edit(req, res, next){
+        /* validation */
+        assert(req.params.id, 'labelId must be provided');
+        assert(req.body.name, 'name must be provided');
 
-    //     const artistId = req.body.id
-    //     const properties = req.body
+        const labelId = req.params.id
+        const properties = req.body
 
-    //     Artist.findByIdAndUpdate({ _id: artistId }, properties)
-    //         .then(() => Artist.findById({ _id: artistId}))
-    //         .then((artist) => res.status(200).json({
-    //             "message": "Artist has been succesfully edited.",
-    //             "code": 200,
-    //             "artist": artist
-    //         }))
-    //         .catch(() => {
-    //             next(new Error('Artist not found, wrong identifier.', 422))
-    //         })
-    // },
+        Label.findByIdAndUpdate({ _id: labelId }, properties)
+            .then(() => Label.findById({ _id: labelId}))
+            .then((label) => res.status(200).json({
+                "message": "Label has been succesfully edited.",
+                "code": 200,
+                "label": label
+            }))
+            .catch(() => {
+                next(new Error('Label not found, wrong identifier.', 422))
+            })
+    },
 
-    // delete(req, res, next) {
-    //     // var decodedUserToken = auth.decodeToken(req.get('x-access-token'), (err, payload) => {
-    //     //     if (err) {
-    //     //         const error = new Error("Niet geautoriseerd (geen valid token)", 401)
-    //     //         res.status(401).json(error)
-    //     //     } else {
-    //     //         token = payload
-    //     //     }
-    //     // })
+    delete(req, res, next) {
+        const labelId = req.params.id
 
-    //     const artistId = req.query.id
-
-    //     Artist.findOneAndDelete({ _id: artistId})
-    //         .then(() => res.status(200).json({
-    //             "message": "Artist has been succesfully deleted.",
-    //             "code": 200,
-    //             "artistId": artistId
-    //         }))
-    //         .catch((err) => {
-    //             next(new Error(err, 422))
-    //         })
-    // },
+        Label.findOneAndDelete({ _id: labelId})
+            .then(() => res.status(200).json({
+                "message": "Label has been succesfully deleted.",
+                "code": 200,
+                "labelId": labelId
+            }))
+            .catch((err) => {
+                next(new Error(err, 422))
+            })
+    },
 
     get(req, res, next) {
         Label.find({})

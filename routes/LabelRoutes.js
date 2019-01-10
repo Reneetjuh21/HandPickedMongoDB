@@ -13,8 +13,8 @@ const router = express.Router();
 router.post('/labels', label_controller.create);
 
 //TODO - CLEANUP?
-// router.put('/concerts', label_controller.edit)
-// router.delete('/concerts', label_controller.delete)
+router.put('/labels/:id', label_controller.edit)
+router.delete('/labels/:id', label_controller.delete)
 
 /* The GET all labels request */
 router.get('/labels', label_controller.get);
