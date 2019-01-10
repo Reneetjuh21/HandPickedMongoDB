@@ -41,13 +41,36 @@ module.exports = {
         assert(req.body.employeeId, 'employeeId must be provided');
         const employeeId = req.body.employeeId;
 
-        Label.find({}, function (err, labels) {
-            labels.forEach(function (label) {
-                label.employees.forEach(function (employee){
-                    console.log(employee)
-                })
-            });
-        })
+        try {
+            Label.find({}, function (err, labels) {
+                labels.forEach(function (label) {
+                    label.employees.forEach(function (employee) {
+                        if (employee.id == employeeId) {
+                            employee.deals.push(newDeal)
+                            newDeal.save()
+                                .then(() => {
+                                    console.log('-=-=-=-=-=-=-=-=-=-=-=- Saving deal -=-=-=-=-=-=-=-=-=-=-=-');
+                                    const dealId = newDeal._id;
+                                    console.log(dealId);
+                                    label.save();
+                                    console.log('-=-=-=-=-=-=-=-=-=-=- Saving employee and label -=-=-=-=-=-=-=-=-=-=-');
+                                    Deal.findById({ _id: dealId })
+                                        .then((deal) => res.status(201).json({
+                                            "message": "Deal has been succesfully added to employee.",
+                                            "code": 201,
+                                            "deal": deal
+                                        }))
+                                })
+                                .catch((err) => {
+                                    next(new ApiError('An error occurred while creating the deal, '+ err, 500))
+                                })
+                        }
+                    })
+                });
+            })
+        } catch (error) {
+            next(new ApiError(error.message, 500))
+        }
 
         // /* binding the deal to an employee and saving it to the database */
         // Employee.findById(employeeId)
