@@ -19,7 +19,7 @@ router.put('/employees/:labelId/:employeeId', employee_controller.edit);
 router.delete('/employees/:labelId/:employeeId', employee_controller.delete);
 
 /* The GET employee by id request */
-router.get('/employees/:id', employee_controller.getByLabelId);
+router.get('/employees', employee_controller.get);
 
 /* Exporting the routes so they can be used by the other classes */
 module.exports = router;

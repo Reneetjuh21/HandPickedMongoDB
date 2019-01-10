@@ -130,33 +130,30 @@ module.exports = {
         }
     },
 
-    getByLabelId(req, res, next){
-        const labelsId = req.params.id
-        Label.findById(labelsId)
-            .then((labels) => {
-                if (labels !== null){
-                    res.status(200).json(labels.employees)
-                } else {
+    get(req, res, next){
+        if (req.query.labelId){
+            const labelsId = req.query.id
+            Label.findById(labelsId)
+                .then((labels) => {
+                    if (labels !== null) {
+                        res.status(200).json(labels.employees)
+                    } else {
+                        next(new Error('Label not found, wrong identifier.', 422))
+                    }
+                })
+                .catch(() => {
                     next(new Error('Label not found, wrong identifier.', 422))
-                }
+                })
+        } else if (req.query.id) {
+            Label.find({}, function (err, labels) {
+                labels.forEach(function (label) {
+                    label.employees.forEach(function (employee) {
+                        if (employee.id == employeeId) {
+                            res.status(200).json(employee)
+                        }
+                    })
+                })
             })
-            .catch(() => {
-                next(new Error('Label not found, wrong identifier.', 422))
-            })
-    },
-
-    // getById(req, res, next) {
-    //     const employeeId = req.params.id
-    //     Employee.findById(employeeId)
-    //         .then((employee) => {
-    //             if (employee !== null){
-    //                 res.status(200).json(employee)
-    //             } else {
-    //                 next(new ApiError('Employee not found, wrong identifier.', 422))
-    //             }
-    //         })
-    //         .catch(() => {
-    //             next(new ApiError('Employee not found, wrong identifier.', 422))
-    //         })
-    // }
+        }
+    }
 }
