@@ -66,13 +66,6 @@ module.exports = {
             })
             .catch(next)
 
-
-        //but how do i know the company the user is in??????
-        //find the company that the user is logged in with
-        //check if the domain name is already taken
-        //push the domain name in the company
-
-
     },
 
     // edit(req, res, next){
