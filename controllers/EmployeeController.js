@@ -132,7 +132,7 @@ module.exports = {
 
     get(req, res, next){
         if (req.query.labelId){
-            const labelsId = req.query.id
+            const labelsId = req.query.labelId
             Label.findById(labelsId)
                 .then((labels) => {
                     if (labels !== null) {
