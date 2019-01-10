@@ -79,7 +79,7 @@ module.exports = {
     delete(req, res, next) {
 
         /* further validation and preparation */
-        assert(req.body.dealId, 'dealId must be provided');
+        assert(req.params.id, 'dealId must be provided');
         const dealId = req.body.dealId;
 
         Deal.findOneAndDelete({ _id: dealId })

@@ -14,7 +14,7 @@ router.post('/deals', deal_controller.create);
 
 //TODO - CLEANUP?
 // router.put('/concerts', deal_controller.edit)
-// router.delete('/concerts', deal_controller.delete)
+router.delete('/deals/:id', deal_controller.delete)
 
 /* The GET all deals request */
 router.get('/deals', deal_controller.get);
