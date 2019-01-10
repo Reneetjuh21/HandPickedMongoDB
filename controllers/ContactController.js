@@ -15,6 +15,7 @@ module.exports = {
             assert(req.body.occupation, 'function must be provided');
             assert(req.body.employee, 'employee must be provided');
             assert(req.body.linkedin, 'phonenumber must be provided');
+            assert(req.params.companyId, 'companyId must be provided');
 
             /* making constants with the items from the request's body */
             const name = req.body.name || '';
@@ -23,6 +24,7 @@ module.exports = {
             const occupation = req.body.occupation || '';
             const employee = req.body.employee || '';
             const linkedin = req.body.linkedin || '';
+            const companyId = req.params.companyId || '';
 
             /* creating a contact with these constants */
             const newContact = new Contact({
@@ -34,13 +36,19 @@ module.exports = {
                 linkedin: linkedin
             });
 
-            /* saving the new contact to the database */
-            newContact.save()
-                .then(() => {
-                    console.log('-=-=-=-=-=-=-=-=-=-=- Creating contact -=-=-=-=-=-=-=-=-=-=-');
-                    return res.status(201).json(newContact).end();
+            Company.findById(companyId)
+                .then((company) => {
+                    company.contacts.push(newContact)
+                    newContact.save()
+                    company.save()
+
+                    Contact.findById({ _id: newContact._id })
+                        .then((contact) => res.status(201).json({
+                            "message": "Contact has been succesfully added to company.",
+                            "code": 201,
+                            "contact": contact
+                        }))
                 })
-                .catch((error) => next(new ApiError(error.toString(), 500)))
         } catch (error) {
             next(new ApiError(error.message, 500))
         }

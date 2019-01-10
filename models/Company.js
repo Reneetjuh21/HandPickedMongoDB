@@ -9,7 +9,9 @@ const CompanySchema = new Schema({
         unique: true
     },
     domains: [{
-        type: String
+        type: String,
+        required: [true, 'name of domain is required'],
+        unique: true
     }],
     contacts: [{
         type: Schema.Types.ObjectId,
