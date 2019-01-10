@@ -11,16 +11,17 @@ const HOST = `http://localhost:${PORT}`;
 
 describe('Routing and Integration Tests', () => {
     //Dit geeft een 500, aanpassen naar 400/404? Hoort eigenlijk 400/404 te zijn
-    xit ('should reject invalid data with 400 status', (done) => {
-        const badLabel = {
-            notAName: 'not real data'
-        };
-        request(HOST)
-            .post('/api/labels')
-            .send(badLabel)
-            .expect(500, done);
-    });
-    xit ('should accept valid data and return 200 status with saved object', (done) => {
+    it('should return an error code 422 when postin an object without a name', (done) => {
+        chai.request(server)
+            .post('/api/user')
+            .send({ name: ''})
+            .end((err, res) => {
+                res.should.have.status(422);
+                done();
+            })
+    }).timeout(5000);
+
+    it ('should accept valid data and return 200 status with saved object', (done) => {
         const goodLabel = {
             name: "Batman"
         };
