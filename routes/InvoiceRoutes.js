@@ -9,12 +9,11 @@ const express = require('express');
 /* Creating the express router */
 const router = express.Router();
 
-/* The GET all invoices request */
-router.post('/invoices', invoice_controller.create);
-
-//TODO - CLEANUP?
-// router.put('/concerts', invoice_controller.edit)
-// router.delete('/concerts', invoice_controller.delete)
+router.post('/invoices', invoice_controller.create)
+router.put('/invoices', invoice_controller.edit)
+router.delete('/invoices/:id', invoice_controller.delete)
+router.get('/invoices', invoice_controller.get)
+router.get('/invoices/:id', invoice_controller.getById)
 
 /* The GET all invoices request */
 router.get('/invoices', invoice_controller.get);
