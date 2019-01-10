@@ -19,8 +19,5 @@ router.post('/deals', deal_controller.create);
 /* The GET all deals request */
 router.get('/deals', deal_controller.get);
 
-/* The GET deal request */
-router.get('/deals/:id', deal_controller.getById);
-
 /* Exporting the routes so they can be used by the other classes */
 module.exports = router;
