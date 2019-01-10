@@ -49,14 +49,6 @@ module.exports = {
                             "contact": contact
                         }))
                 })
-
-            /* saving the new contact to the database */
-            newContact.save()
-                .then(() => {
-                    console.log('-=-=-=-=-=-=-=-=-=-=- Creating contact -=-=-=-=-=-=-=-=-=-=-');
-                    return res.status(201).json(newContact).end();
-                })
-                .catch((error) => next(new ApiError(error.toString(), 500)))
         } catch (error) {
             next(new ApiError(error.message, 500))
         }
