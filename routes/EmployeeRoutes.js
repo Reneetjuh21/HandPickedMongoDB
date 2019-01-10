@@ -9,18 +9,10 @@ const express = require('express');
 /* Creating the express router */
 const router = express.Router();
 
-/* The POST employee request */
-router.post('/employees/:id', employee_controller.create);
-
-//TODO - CLEANUP?
-// router.put('/concerts', employee_controller.edit)
-// router.delete('/concerts', employee_controller.delete)
-
-/* The GET employee by LabelId request */
-router.get('/employees/:id', employee_controller.getByLabelId);
-
-//TODO - FINISH?
-// router.get('/employees/:id', employee_controller.getById)
+router.post('/employees/:id', employee_controller.create)
+router.put('/employees/:labelId/:employeeId', employee_controller.edit)
+router.delete('/employees/:labelId/:employeeId', employee_controller.delete)
+router.get('/employees/:id', employee_controller.getByLabelId)
 
 /* Exporting the routes so they can be used by the other classes */
 module.exports = router;

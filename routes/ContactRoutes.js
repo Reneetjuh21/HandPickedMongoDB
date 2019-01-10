@@ -9,12 +9,10 @@ const express = require('express');
 /* Creating the express router */
 const router = express.Router();
 
-/* The POST contact request */
-router.post('/contacts', contact_controller.create);
-
-//TODO - CLEANUP?
-// router.put('/concerts', contact_controller.edit)
-// router.delete('/concerts', contact_controller.delete)
+router.post('/contacts', contact_controller.create)
+router.put('/contacts/:id', contact_controller.edit)
+router.delete('/contacts/:id', contact_controller.delete)
+router.get('/contacts', contact_controller.get)
 
 /* The GET all contacts request */
 router.get('/contacts', contact_controller.get);

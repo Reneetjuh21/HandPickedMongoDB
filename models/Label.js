@@ -12,7 +12,7 @@ const LabelSchema = new Schema({
         type: String
     },
     employees: [{
-        type: Employee
+        type: Employee,
     }]
 })
 

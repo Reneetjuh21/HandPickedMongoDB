@@ -15,6 +15,9 @@ router.post('/companies', company_controller.create);
 //TODO - CLEANUP?
 // router.put('/concerts', company_controller.edit)
 // router.delete('/concerts', company_controller.delete)
+router.get('/companies', company_controller.get)
+router.get('/companies/:id', company_controller.getById)
+router.get('/companies/:name', company_controller.getByName)
 
 /* The GET all companies request */
 router.get('/companies', company_controller.get);
