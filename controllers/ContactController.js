@@ -15,7 +15,7 @@ module.exports = {
             assert(req.body.occupation, 'function must be provided');
             assert(req.body.employee, 'employee must be provided');
             assert(req.body.linkedin, 'phonenumber must be provided');
-            assert(req.params.companyId, 'companyId must be provided');
+            assert(req.body.companyId, 'companyId must be provided');
 
             /* making constants with the items from the request's body */
             const name = req.body.name || '';
