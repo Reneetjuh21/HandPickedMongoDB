@@ -9,7 +9,7 @@ const HOST = `http://localhost:${PORT}`;
 //const CompanyController = require('../controllers/CompanyController');
 //const Company = require('../models/Company');
 
-xdescribe('Routing and Integration Tests', () => {
+describe('Routing and Integration Tests', () => {
   request(HOST)
   .post('/api/labels')
   .send({

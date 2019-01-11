@@ -17,12 +17,12 @@ chai.use(chaiHttp);
 //const CompanyController = require('../controllers/CompanyController');
 //const Company = require('../models/Company');
 
-xdescribe('DealsController', () => {
+describe('DealsController', () => {
     //Dit geeft een 500, aanpassen naar 400/404? Hoort eigenlijk 400/404 te zijn
     // it ('should reject invalid data with 400 status', (done) => {
     //
     // });
-    it ('Should return a deal when posting a valid object', (done) => {
+    it ('Should return a deal when posting a valid deal', (done) => {
         request(HOST)
             .post('/api/labels')
             .send({name: "Test2"})
@@ -99,7 +99,7 @@ xdescribe('DealsController', () => {
             })
     }).timeout(5000)
 
-    it('should return status 404 when ga deal is not found', (done) => {
+    it('should return status 404 when deal is not found', (done) => {
         request(HOST)
             .get('/api/deals/' + "notAnIndeifier")
 

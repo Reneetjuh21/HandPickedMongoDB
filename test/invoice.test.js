@@ -15,9 +15,9 @@ chai.use(chaiHttp);
 //const CompanyController = require('../controllers/CompanyController');
 //const Company = require('../models/Company');
 
-xdescribe('InvoiceController', () => {
+describe('InvoiceController', () => {
     //Dit geeft een 500, aanpassen naar 400/404? Hoort eigenlijk 400/404 te zijn
-    it('should return an error code 404 when postin an object without a version', (done) => {
+    it('should return an error code 404 when postin an invoice without a version', (done) => {
         request(HOST)
             .post('/api/invoices')
             .send({ date: '12/12/2018/12:12:0', status: 'done', version: ''})
@@ -27,7 +27,7 @@ xdescribe('InvoiceController', () => {
             })
     }).timeout(5000);
 
-    it ('should return a invoice when posting a valid object', (done) => {
+    it ('should return a invoice when posting a valid invoice', (done) => {
         const goodInvoice = {
             date: '12/12/2018/12:12:0',
             status: 'done',
@@ -46,14 +46,6 @@ xdescribe('InvoiceController', () => {
     });
 
     it('should return status 404 when ga invoice is not found', (done) => {
-        // request(HOST)
-        //     .post('/api/invoices')
-        //     .send({
-        //         date: '12/12/2018/12:12:0',
-        //         status: 'done',
-        //         version: '1'
-        //     })
-        //     .end((err, res) => {
                 request(HOST)
                     .get('/api/invoices/' + "notAnIndeifier")
 
@@ -62,7 +54,6 @@ xdescribe('InvoiceController', () => {
                         res.should.be.a('object');
 
                         done()
-                    // })
             })
     }).timeout(5000)
 
@@ -85,7 +76,7 @@ xdescribe('InvoiceController', () => {
             })
     });
 
-    it ('should return status 200 when deleting a valid invoice', (done) => {
+    it ('should return status 200 when changing a valid invoice', (done) => {
         const goodInvoice = {
             date: '12/12/2018/12:12:0',
             status: 'in prograss',
@@ -110,7 +101,7 @@ xdescribe('InvoiceController', () => {
             })
     });
 
-    it ('should return status 404 when deleting a non valid invoice by invalid id', (done) => {
+    it ('should return status 404 when chanching a non valid invoice by invalid id', (done) => {
         const goodInvoice = {
             date: '12/12/2018/12:12:0',
             status: 'in prograss',

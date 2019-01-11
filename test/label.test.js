@@ -4,6 +4,7 @@ const expect = require('chai').expect;
 const mongoose = require('mongoose');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const Label = require('../models/Label')
 
 const PORT = process.env.PORT || 3000;
 const HOST = `http://localhost:${PORT}`;
@@ -26,7 +27,7 @@ describe('Labelcontroller', () => {
             })
     }).timeout(5000);
 
-    it ('should return a label when posting a valid object', (done) => {
+    it ('should return a label when posting a valid label', (done) => {
         const goodLabel = {
             name: "Batman"
         };
@@ -42,7 +43,7 @@ describe('Labelcontroller', () => {
             .expect(201, done);
     });
 
-    it('should return status 404 when ga label is not found', (done) => {
+    it('should return status 404 when label is not found', (done) => {
         request(HOST)
             .post('/api/labels')
             .send({ name: 'testUser'})
@@ -60,4 +61,51 @@ describe('Labelcontroller', () => {
 
             })
     }).timeout(5000)
+
+    it ('should return status 200 when deleting a valid label', (done) => {
+        const goodLabel = {
+            name: "Batman"
+        };
+        request(HOST)
+            .post('/api/labels')
+            .send(goodLabel)
+            .end((err, res) => {
+                Label.findOne({name: "Batman"})
+                    .then((newLabel) => {
+                        request(HOST)
+                            .delete('/api/labels/' + newLabel._id)
+                            .expect(200, done);
+                    })
+            })
+    });
+
+    it ('should return status 200 when changing a valid label', (done) => {
+        const goodLabel = {
+            name: "Batman"
+        };
+        const newLabel = {
+            name: "Robin"
+        };
+        request(HOST)
+            .post('/api/labels')
+            .send(goodLabel)
+            .end((err, res) => {
+                Label.findOne({name: "Batman"})
+                    .then((newLabel) => {
+                        request(HOST)
+                            .put('/api/labels/' + newLabel._id)
+                            .send(newLabel)
+                            .expect(200, done);
+                    })
+            })
+    });
+
+    it ('should return status 404 when chanching a non valid label by invalid id', (done) => {
+        request(HOST)
+            .put('/api/labels/' + "notAnIndeifier")
+            .send({
+                name: "Robin"
+            })
+            .expect(404, done);
+    });
 });
