@@ -89,7 +89,7 @@ module.exports = {
                 "dealId": dealId
             }))
             .catch((err) => {
-                next(new Error(err, 422))
+               next(new Error(err, 422))
             })
     }, 
 

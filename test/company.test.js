@@ -9,9 +9,9 @@ const HOST = `http://localhost:${PORT}`;
 //const CompanyController = require('../controllers/CompanyController');
 //const Company = require('../models/Company');
 
-describe('Routing and Integration Tests', () => {
+xdescribe('Routing and Integration Tests', () => {
       //Dit geeft een 500, aanpassen naar 400/404? Hoort eigenlijk 400/404 te zijn
-      xit ('should reject invalid data with 400 status', (done) => {
+      it ('should reject invalid data with 400 status', (done) => {
         const badReq = {
           notAJob: 'not real data'
         };
