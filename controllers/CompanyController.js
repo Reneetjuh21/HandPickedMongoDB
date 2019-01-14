@@ -118,7 +118,7 @@ module.exports = {
 
     get(req, res, next) {
         if(req.query.name){
-            const companyName = req.params.name
+            const companyName = req.query.name
             Company.find({name: companyName})
                 .then((company) => {
                     if (company !== null) {
