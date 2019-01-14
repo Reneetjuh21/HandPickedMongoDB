@@ -119,10 +119,10 @@ module.exports = {
     get(req, res, next) {
         if(req.query.name){
             const companyName = req.query.name
-            companyName = decodeURIComponent(companyName)
+            var decodedName = decodeURIComponent(companyName)
 
-            console.log(companyName)
-            Company.findOne({name: companyName})
+            console.log(decodedName)
+            Company.findOne({name: decodedName})
                 .then((company) => {
                     if (company !== null) {
                         res.status(200).json(company)
