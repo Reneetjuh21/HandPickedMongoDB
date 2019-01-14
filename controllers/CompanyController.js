@@ -117,7 +117,7 @@ module.exports = {
     // },
 
     get(req, res, next) {
-        if(req.body.name){
+        if(req.query.name){
             const companyName = req.query.name
             companyName = decodeURIComponent(companyName)
 
