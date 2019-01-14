@@ -118,7 +118,8 @@ module.exports = {
 
     get(req, res, next) {
         if(req.body.name){
-            const companyName = req.body.name
+            const companyName = req.query.name
+            companyName.split("%20", " ")
             Company.findOne({name: companyName})
                 .then((company) => {
                     if (company !== null) {
