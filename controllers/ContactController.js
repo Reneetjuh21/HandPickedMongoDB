@@ -24,7 +24,7 @@ module.exports = {
             const occupation = req.body.occupation || '';
             const employee = req.body.employee || '';
             const linkedin = req.body.linkedin || '';
-            const companyId = req.params.companyId || '';
+            const companyId = req.body.companyId || '';
 
             /* creating a contact with these constants */
             const newContact = new Contact({
