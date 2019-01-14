@@ -117,29 +117,44 @@ module.exports = {
     // },
 
     get(req, res, next) {
-        Company.find({})
-            .then((companies) => {
-                res.status(200).json(companies)
-            })
-            .catch(() => {
-                next(new Error('Companies not found, no companies have been posted yet.', 404))
-            })
+        if(req.query.name){
+            const companyName = req.params.name
+            Company.findById(companyName)
+                .then((company) => {
+                    if (company !== null) {
+                        res.status(200).json(company)
+                    } else {
+                        next(new Error('Company not found, wrong identifier.', 422))
+                    }
+                })
+                .catch(() => {
+                    next(new Error('Company not found, wrong identifier.', 422))
+                })
+        } else {
+            Company.find({})
+                .then((companies) => {
+                    res.status(200).json(companies)
+                })
+                .catch(() => {
+                    next(new Error('Companies not found, no companies have been posted yet.', 404))
+                })
+        }
     },
 
-    getByName(req, res, next) {
-        const companyName = req.params.name
-        Company.findById(companyName)
-            .then((company) => {
-                if (company !== null){
-                    res.status(200).json(company)
-                } else {
-                    next(new Error('Company not found, wrong identifier.', 422))
-                }
-            })
-            .catch(() => {
-                next(new Error('Company not found, wrong identifier.', 422))
-            })
-    },
+    // getByName(req, res, next) {
+    //     const companyName = req.params.name
+    //     Company.findById(companyName)
+    //         .then((company) => {
+    //             if (company !== null){
+    //                 res.status(200).json(company)
+    //             } else {
+    //                 next(new Error('Company not found, wrong identifier.', 422))
+    //             }
+    //         })
+    //         .catch(() => {
+    //             next(new Error('Company not found, wrong identifier.', 422))
+    //         })
+    // },
 
     getById(req, res, next) {
         const companyId = req.params.id
