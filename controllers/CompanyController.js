@@ -119,7 +119,9 @@ module.exports = {
     get(req, res, next) {
         if(req.body.name){
             const companyName = req.query.name
-            companyName.split("%20", " ")
+            companyName = decodeURIComponent(companyName)
+
+            console.log(companyName)
             Company.findOne({name: companyName})
                 .then((company) => {
                     if (company !== null) {
