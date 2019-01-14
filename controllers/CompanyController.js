@@ -119,7 +119,7 @@ module.exports = {
     get(req, res, next) {
         if(req.query.name){
             const companyName = req.query.name
-            Company.find({name: companyName})
+            Company.findOne({name: companyName})
                 .then((company) => {
                     if (company !== null) {
                         res.status(200).json(company)
