@@ -117,8 +117,8 @@ module.exports = {
     // },
 
     get(req, res, next) {
-        if(req.query.name){
-            const companyName = req.query.name
+        if(req.body.name){
+            const companyName = req.body.name
             Company.findOne({name: companyName})
                 .then((company) => {
                     if (company !== null) {
