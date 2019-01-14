@@ -119,7 +119,6 @@ module.exports = {
     get(req, res, next) {
         if(req.query.name){
             var companyName = req.query.name
-            companyName = companyName.split("&", "%26")
             var decodedName = decodeURIComponent(companyName)
 
             console.log(decodedName)
