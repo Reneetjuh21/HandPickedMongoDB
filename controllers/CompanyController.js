@@ -20,7 +20,6 @@ module.exports = {
 
             /* saving the new company to the database */
             Company.findOne({name: name})
-                .populate('contacts')
                 .then((company) => {
                     if(company == null) {
                         newCompany.save()
@@ -124,6 +123,7 @@ module.exports = {
 
             console.log(decodedName)
             Company.findOne({name: decodedName})
+                .populate('contacts')
                 .then((company) => {
                     if (company !== null) {
                         res.status(200).json(company)
@@ -136,6 +136,7 @@ module.exports = {
                 })
         } else {
             Company.find({})
+                .populate('contacts')
                 .then((companies) => {
                     res.status(200).json(companies)
                 })
@@ -163,6 +164,7 @@ module.exports = {
     getById(req, res, next) {
         const companyId = req.params.id
         Company.findById(companyId)
+            .populate('contacts')
             .then((company) => {
                 if (company !== null){
                     res.status(200).json(company)
