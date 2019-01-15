@@ -144,21 +144,6 @@ module.exports = {
         }
     },
 
-    // getByName(req, res, next) {
-    //     const companyName = req.params.name
-    //     Company.findById(companyName)
-    //         .then((company) => {
-    //             if (company !== null){
-    //                 res.status(200).json(company)
-    //             } else {
-    //                 next(new Error('Company not found, wrong identifier.', 422))
-    //             }
-    //         })
-    //         .catch(() => {
-    //             next(new Error('Company not found, wrong identifier.', 422))
-    //         })
-    // },
-
     getById(req, res, next) {
         const companyId = req.params.id
         Company.findById(companyId)
