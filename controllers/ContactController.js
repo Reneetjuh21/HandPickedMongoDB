@@ -38,7 +38,7 @@ module.exports = {
 
             Company.findById(companyId)
                 .then((company) => {
-                    company.contacts.push(newContact)
+                    company.contacts.push(newContact._id)
                     newContact.save()
                     company.save()
 
