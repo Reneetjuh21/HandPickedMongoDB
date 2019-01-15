@@ -123,7 +123,7 @@ module.exports = {
 
             console.log(decodedName)
             Company.findOne({name: decodedName})
-                .populate('contacts')
+                .populate({ path: 'Contact' })
                 .then((company) => {
                     if (company !== null) {
                         res.status(200).json(company)
@@ -136,7 +136,7 @@ module.exports = {
                 })
         } else {
             Company.find({})
-                .populate('contacts')
+                .populate({path: 'Contact'})
                 .then((companies) => {
                     res.status(200).json(companies)
                 })
