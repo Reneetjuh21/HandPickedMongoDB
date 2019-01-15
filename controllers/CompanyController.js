@@ -20,6 +20,7 @@ module.exports = {
 
             /* saving the new company to the database */
             Company.findOne({name: name})
+                .populate('contacts')
                 .then((company) => {
                     if(company == null) {
                         newCompany.save()
