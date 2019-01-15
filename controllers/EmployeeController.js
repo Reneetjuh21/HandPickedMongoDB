@@ -148,12 +148,22 @@ module.exports = {
             Label.find({}, function (err, labels) {
                 labels.forEach(function (label) {
                     label.employees.forEach(function (employee) {
-                        if (employee.id == employeeId) {
+                        if (employee.id == req.query.id) {
                             res.status(200).json(employee)
                         }
                     })
                 })
             })
+        } else if (req.query.name) {
+            Label.find({}, function (err, labels) {
+                labels.forEach(function (label) {
+                    label.employees.forEach(function (employee) {
+                        if (employee.name == req.query.name) {
+                            res.status(200).json(employee)
+                        }
+                    })
+                })
+            })  
         }
     }
 }

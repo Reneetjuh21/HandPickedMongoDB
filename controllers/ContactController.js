@@ -22,33 +22,47 @@ module.exports = {
             const phonenumber = req.body.phonenumber || '';
             const email = req.body.email || '';
             const occupation = req.body.occupation || '';
-            const employee = req.body.employee || '';
+            const empl = req.body.employee || '';
             const linkedin = req.body.linkedin || '';
             const companyId = req.body.companyId || '';
 
-            /* creating a contact with these constants */
-            const newContact = new Contact({
-                name: name,
-                phonenumber: phonenumber,
-                email: email,
-                occupation: occupation,
-                employee: employee,
-                linkedin: linkedin
-            });
+            Label.find({}, function (err, labels) {
+                labels.forEach(function (label) {
+                    label.employees.forEach(function (employee) {
+                        if (employee.name == empl) {
+                            /* creating a contact with these constants */
+                            const newContact = new Contact({
+                                name: name,
+                                phonenumber: phonenumber,
+                                email: email,
+                                occupation: occupation,
+                                employee: employee._id,
+                                linkedin: linkedin
+                            });
 
-            Company.findById(companyId)
-                .then((company) => {
-                    company.contacts.push(newContact._id)
-                    newContact.save()
-                    company.save()
+                            Company.findById(companyId)
+                                .then((company) => {
+                                    company.contacts.push(newContact)
+                                    newContact.save()
+                                    company.save()
 
-                    Contact.findById({ _id: newContact._id })
-                        .then((contact) => res.status(201).json({
-                            "message": "Contact has been succesfully added to company.",
-                            "code": 201,
-                            "contact": contact
-                        }))
+                                    Contact.findById({ _id: newContact._id })
+                                        .then((contact) => res.status(201).json({
+                                            "message": "Contact has been succesfully added to company.",
+                                            "code": 201,
+                                            "contact": contact
+                                        }))
+                                        .catch(() => {
+                                            next(new Error('Contact not created', 422))
+                                        })
+                                })
+                            .catch(() => {
+                                next(new Error('Contact not created', 422))
+                            })
+                        }
+                    })
                 })
+            })
         } catch (error) {
             next(new ApiError(error.message, 500))
         }
