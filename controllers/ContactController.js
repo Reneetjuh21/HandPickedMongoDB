@@ -1,6 +1,7 @@
 const moment = require('moment');
 var Contact = require('../models/Contact');
 var Company = require('../models/Company');
+var Label = require('../models/Label');
 const ApiError = require('../models/ApiError');
 const auth = require('../auth/auth');
 const assert = require('assert');
