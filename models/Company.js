@@ -10,7 +10,6 @@ const CompanySchema = new Schema({
     },
     domains: [{
         type: String,
-        required: [true, 'name of domain is required'],
         unique: true
     }],
     contacts: [{

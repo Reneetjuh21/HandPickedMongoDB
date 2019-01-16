@@ -11,9 +11,6 @@ const EmployeeSchema = new Schema({
         type: String,
         required: true
     },
-    gmail: {
-        type: String
-    },
     deals: [{
         type: Schema.Types.ObjectId, 
         ref: 'deal'
