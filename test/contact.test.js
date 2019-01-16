@@ -74,7 +74,7 @@ describe('ContactController', () => {
                                                             })
                                                             .expect((res) => {
                                                                 expect(res.body.message).to.equal("Contact has been succesfully added to company.");
-                                                                expect(res.body.code).to.equal("201");
+                                                                expect(res.body.code).to.equal(201);
                                                             })  
                                                             .expect(201, done);
                                                     })
