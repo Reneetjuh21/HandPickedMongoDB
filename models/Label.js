@@ -8,9 +8,6 @@ const LabelSchema = new Schema({
         required: true,
         unique: true
     },
-    apiaccesstoken: {
-        type: String
-    },
     employees: [{
         type: Employee,
     }]
