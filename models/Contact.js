@@ -29,15 +29,15 @@ const ContactSchema = new Schema({
     }
 })
 
-function autoPopulateEmployee(next) {
-    this.populate('employee')
-    next()
-}
+// function autoPopulateEmployee(next) {
+//     this.populate('employee')
+//     next()
+// }
 
-ContactSchema
-    .pre('findOne', autoPopulateEmployee)
-    .pre('find', autoPopulateEmployee)
-    .pre('findById', autoPopulateEmployee)
+// ContactSchema
+//     .pre('findOne', autoPopulateEmployee)
+//     .pre('find', autoPopulateEmployee)
+//     .pre('findById', autoPopulateEmployee)
 
 
 module.exports = mongoose.model('contact', ContactSchema)

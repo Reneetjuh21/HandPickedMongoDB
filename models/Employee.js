@@ -17,14 +17,14 @@ const EmployeeSchema = new Schema({
     }]
 })
 
-function autoPopulateDeal(next) {
-    this.populate('deals')
-    next()
-}
+// function autoPopulateDeal(next) {
+//     this.populate('deals')
+//     next()
+// }
 
-EmployeeSchema
-    .pre('findOne', autoPopulateDeal)
-    .pre('find', autoPopulateDeal)
-    .pre('findById', autoPopulateDeal)
+// EmployeeSchema
+//     .pre('findOne', autoPopulateDeal)
+//     .pre('find', autoPopulateDeal)
+//     .pre('findById', autoPopulateDeal)
 
 module.exports = EmployeeSchema

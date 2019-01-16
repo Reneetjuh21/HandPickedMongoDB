@@ -18,15 +18,15 @@ const CompanySchema = new Schema({
     }]
 
 })
-function autoPopulateContacts(next) {
-    this.populate('contacts')
-    next()
-}
+// function autoPopulateContacts(next) {
+//     this.populate('contacts')
+//     next()
+// }
 
-CompanySchema
-    .pre('findOne', autoPopulateContacts)
-    .pre('find', autoPopulateContacts)
-    .pre('findById', autoPopulateContacts)
+// CompanySchema
+//     .pre('findOne', autoPopulateContacts)
+//     .pre('find', autoPopulateContacts)
+//     .pre('findById', autoPopulateContacts)
 
 
 

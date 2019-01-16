@@ -33,14 +33,14 @@ const DealSchema = new Schema({
     }
 })
 
-function autoPopulateCompany(next) {
-    this.populate('company')
-    next()
-}
+// function autoPopulateCompany(next) {
+//     this.populate('company')
+//     next()
+// }
 
-DealSchema
-    .pre('findOne', autoPopulateCompany)
-    .pre('find', autoPopulateCompany)
-    .pre('findById', autoPopulateCompany)
+// DealSchema
+//     .pre('findOne', autoPopulateCompany)
+//     .pre('find', autoPopulateCompany)
+//     .pre('findById', autoPopulateCompany)
 
 module.exports = mongoose.model('deal', DealSchema)
