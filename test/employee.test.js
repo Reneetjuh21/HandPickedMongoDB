@@ -46,12 +46,47 @@ describe('EmployeeController', () => {
 
     it('Should return a employee from correct label after a GET request with a valid labelId', (done) => {
         request(HOST)
-        .get('/api/employees/'+ newLabelId)
-        .expect((res) => {
-            expect(res.body.name).to.equal("label")
-            expect(res.body.employees).to.contain("TestEmployee")
+        .post('/api/labels')
+        .send({
+            name: "label"
+        })
+        .then(() => {
+            request(HOST)
+            .post('/api/employees/'+ newLabelId)
+            .send({
+                name: "TestEmployee",
+                email: "testemployee@gmail.com"
+            })
+        })
+        .then( () => {
+            request(HOST)
+            .get('/api/employees/'+ newLabelId)
+            .expect((res) => {
+                expect(res.body.name).to.equal("label")
+                expect(res.body.employees).to.contain("TestEmployee")
+                done()
+            })
         })
     })
 
+    it('Should return a 404 when posting valid employee with non existing labelID', (done) => {
+        request(HOST)
+        .post('/api/labels')
+        .send({
+            name: "label"
+        })
+        .then(() => {
+            request(HOST)
+            .post('/api/employees/'+ 12345)
+            .send({
+                name: "TestEmployee",
+            })
+            .expect((res) => {
+                expect(status(404))
+            })
+        })
+    })
+
+    //it('Should return a ')
 
 });
