@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000;
 const HOST = `http://localhost:${PORT}`;
 
 
-describe('Routing and Integration Tests', () => {
+describe('CompanyController', () => {
       it ('Should reject invalid data with 400 status', (done) => {
         const badReq = {
           notAJob: 'not real data'
@@ -17,7 +17,7 @@ describe('Routing and Integration Tests', () => {
           .send(badReq)
           .expect(500, done);
       });
-      it ('Should accept valid data and return 200 status with saved object', (done) => {
+      it ('Should accept valid data and return 200 status with company', (done) => {
         const goodReq = {
           name: "Batman",
         };
@@ -32,7 +32,7 @@ describe('Routing and Integration Tests', () => {
           })
           .expect(201, done);
       });
-      it('Should respond to API request with all listings', (done) => {
+      it('Should return companies with valid get request', (done) => {
         const anotherReq = {
             name: 'John Doe',
             contact: {

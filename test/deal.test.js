@@ -14,14 +14,8 @@ const HOST = `http://localhost:${PORT}`;
 chai.should();
 chai.use(chaiHttp);
 
-//const CompanyController = require('../controllers/CompanyController');
-//const Company = require('../models/Company');
 
-describe('DealsController', () => {
-    //Dit geeft een 500, aanpassen naar 400/404? Hoort eigenlijk 400/404 te zijn
-    // it ('should reject invalid data with 400 status', (done) => {
-    //
-    // });
+describe('DealController', () => {
     it ('Should return a deal when posting a valid deal', (done) => {
          request(HOST)
             .post('/api/labels')
@@ -32,7 +26,6 @@ describe('DealsController', () => {
                     .end(() => {
                         Label.findOne({name: "Test2"})
                             .then((newLabel) => {
-                                //console.log(newLabel)
                                 request(HOST)
                                     .post('/api/employees/' + newLabel._id)
                                     .send({
@@ -77,8 +70,7 @@ describe('DealsController', () => {
         })
     })
 
-    //Dit geeft een 500, aanpassen naar 400/404? Hoort eigenlijk 400/404 te zijn
-    it('should return an error code 404 when postin an object without a employeeId', (done) => {
+    it('Should return an error code 404 when posting an object without a employeeId', (done) => {
         request(HOST)
             .post('/api/labels')
             .send({
@@ -99,7 +91,7 @@ describe('DealsController', () => {
             })
     }).timeout(5000)
 
-    it('should return status 404 when deal is not found', (done) => {
+    it('Should return status 404 when deal is not found', (done) => {
         request(HOST)
             .get('/api/deals/' + "notAnIndeifier")
 
@@ -111,7 +103,7 @@ describe('DealsController', () => {
             })
     }).timeout(5000)
 
-    it ('should return status 200 when deleting a valid deal', (done) => {
+    it ('Should return status 200 when deleting a valid deal', (done) => {
         request(HOST)
             .post('/api/labels')
             .send({name: "Test2"})
@@ -121,7 +113,6 @@ describe('DealsController', () => {
                     .end(() => {
                         Label.findOne({name: "Test2"})
                             .then((newLabel) => {
-                                //console.log(newLabel)
                                 request(HOST)
                                     .post('/api/employees/' + newLabel._id)
                                     .send({

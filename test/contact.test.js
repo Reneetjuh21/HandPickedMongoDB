@@ -95,7 +95,7 @@ describe('ContactController', () => {
           .expect(500, done);
       });
 
-      it('should return an error code when posting an object without a employeeId', (done) => {
+      it('Should return an error code when posting an object without a employeeId', (done) => {
         request(HOST)
             .post('/api/contacts')
             .send({
