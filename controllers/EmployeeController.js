@@ -154,6 +154,18 @@ module.exports = {
                     })
                 })
             })
+        } else  {
+            var array = [];
+            Label.find({}, function (err, labels) {
+                labels.forEach(function (label) {
+                    label.employees.forEach(function (employee) {
+                        array.push(employee);
+                    })
+                    .then(() => {
+                        res.status(200).json(array);
+                    })
+                })
+            })
         }
     }
 }
