@@ -10,7 +10,6 @@ const CompanySchema = new Schema({
     },
     domains: [{
         type: String,
-        required: [true, 'name of domain is required'],
         unique: true
     }],
     contacts: [{
@@ -19,5 +18,16 @@ const CompanySchema = new Schema({
     }]
 
 })
+function autoPopulateContacts(next) {
+    this.populate('contacts')
+    next()
+}
+
+CompanySchema
+    .pre('findOne', autoPopulateContacts)
+    .pre('find', autoPopulateContacts)
+    .pre('findById', autoPopulateContacts)
+
+
 
 module.exports = mongoose.model('company', CompanySchema)
