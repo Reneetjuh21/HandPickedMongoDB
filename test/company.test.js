@@ -6,12 +6,9 @@ const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3000;
 const HOST = `http://localhost:${PORT}`;
 
-//const CompanyController = require('../controllers/CompanyController');
-//const Company = require('../models/Company');
 
 describe('Routing and Integration Tests', () => {
-      //Dit geeft een 500, aanpassen naar 400/404? Hoort eigenlijk 400/404 te zijn
-      it ('should reject invalid data with 400 status', (done) => {
+      it ('Should reject invalid data with 400 status', (done) => {
         const badReq = {
           notAJob: 'not real data'
         };
@@ -20,10 +17,9 @@ describe('Routing and Integration Tests', () => {
           .send(badReq)
           .expect(500, done);
       });
-      it ('should accept valid data and return 200 status with saved object', (done) => {
+      it ('Should accept valid data and return 200 status with saved object', (done) => {
         const goodReq = {
           name: "Batman",
-          contact: "Bruce Wayne"
         };
         request(HOST)
           .post('/api/companies')
@@ -36,7 +32,7 @@ describe('Routing and Integration Tests', () => {
           })
           .expect(201, done);
       });
-      it('should respond to API request with all listings', (done) => {
+      it('Should respond to API request with all listings', (done) => {
         const anotherReq = {
             name: 'John Doe',
             contact: {
@@ -61,4 +57,15 @@ describe('Routing and Integration Tests', () => {
               .expect(200, done);
           });
       });
+
+      it('Should receive a 201 when posting a company with domain', (done) => {
+        request(HOST)
+        .post('/api/companies')
+        .send({
+          name: "Companyname",
+          domain: "Domain"
+        })
+        .expect(201, done);
+      });
+
 });

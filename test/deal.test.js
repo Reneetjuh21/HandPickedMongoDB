@@ -23,7 +23,7 @@ describe('DealsController', () => {
     //
     // });
     it ('Should return a deal when posting a valid deal', (done) => {
-        request(HOST)
+         request(HOST)
             .post('/api/labels')
             .send({name: "Test2"})
             .then(() => {
@@ -69,7 +69,7 @@ describe('DealsController', () => {
                                                                 expect(res.body.deal.valuta).to.equal("euro");
                                                             })
                                                             .expect(201, done);
-                                                    })
+                                                   })
                                             })
                                     })
                             })
