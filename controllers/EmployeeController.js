@@ -1,7 +1,5 @@
-const moment = require('moment');
 const Label = require('../models/Label');
 const ApiError = require('../models/ApiError');
-const auth = require('../auth/auth');
 const assert = require('assert');
 
 
@@ -177,6 +175,7 @@ module.exports = {
                     })
                 })
             })
+        }
         
     }
 }
