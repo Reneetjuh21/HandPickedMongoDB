@@ -1,7 +1,5 @@
-const moment = require('moment');
 const Label = require('../models/Label');
 const ApiError = require('../models/ApiError');
-const auth = require('../auth/auth');
 const assert = require('assert');
 
 
@@ -154,6 +152,7 @@ module.exports = {
                     })
                 })
             })
+
         } else if (req.query.name) {
             Label.find({}, function (err, labels) {
                 labels.forEach(function (label) {
@@ -163,7 +162,20 @@ module.exports = {
                         }
                     })
                 })
-            })  
+            })
+        } else  {
+            var array = [];
+            Label.find({}, function (err, labels) {
+                labels.forEach(function (label) {
+                    label.employees.forEach(function (employee) {
+                        array.push(employee);
+                    })
+                    .then(() => {
+                        res.status(200).json(array);
+                    })
+                })
+            })
         }
+        
     }
 }
