@@ -12,12 +12,8 @@ const HOST = `http://localhost:${PORT}`;
 chai.should();
 chai.use(chaiHttp);
 
-//const CompanyController = require('../controllers/CompanyController');
-//const Company = require('../models/Company');
-
 describe('Labelcontroller', () => {
-    //Dit geeft een 500, aanpassen naar 400/404? Hoort eigenlijk 400/404 te zijn
-    it('should return an error code 404 when postin an object without a name', (done) => {
+    it('Should return an error code 404 when postin an object without a name', (done) => {
         request(HOST)
             .post('/api/labels')
             .send({ name: ''})
@@ -27,7 +23,7 @@ describe('Labelcontroller', () => {
             })
     }).timeout(5000);
 
-    it ('should return a label when posting a valid label', (done) => {
+    it ('Should return a label when posting a valid label', (done) => {
         const goodLabel = {
             name: "Batman"
         };
@@ -43,7 +39,7 @@ describe('Labelcontroller', () => {
             .expect(201, done);
     });
 
-    it('should return status 404 when label is not found', (done) => {
+    it('Should return status 404 when label is not found', (done) => {
         request(HOST)
             .post('/api/labels')
             .send({ name: 'testUser'})
@@ -62,7 +58,7 @@ describe('Labelcontroller', () => {
             })
     }).timeout(5000)
 
-    it ('should return status 200 when deleting a valid label', (done) => {
+    it ('Should return status 200 when deleting a valid label', (done) => {
         const goodLabel = {
             name: "Batman"
         };
@@ -79,7 +75,7 @@ describe('Labelcontroller', () => {
             })
     });
 
-    it ('should return status 200 when changing a valid label', (done) => {
+    it ('Should return status 200 when changing a valid label', (done) => {
         const goodLabel = {
             name: "Batman"
         };
@@ -100,7 +96,7 @@ describe('Labelcontroller', () => {
             })
     });
 
-    it ('should return status 404 when chanching a non valid label by invalid id', (done) => {
+    it ('Should return status 404 when changing a non valid label by invalid id', (done) => {
         request(HOST)
             .put('/api/labels/' + "notAnIndeifier")
             .send({
