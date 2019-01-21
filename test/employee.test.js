@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 
 describe('EmployeeController', () => {
 
-    it('Should return a 404 when posting valid employee with non existing labelID', (done) => {
+    it('Should return a 500 when posting valid employee with non existing labelID', (done) => {
         request(HOST)
         .post('/api/labels')
         .send({
@@ -21,30 +21,46 @@ describe('EmployeeController', () => {
         })
         .then(() => {
             request(HOST)
-            .post('/api/employees/'+ 12345)
-            .send({
-                name: "TestEmployee",
-            })
-            .expect((res) => {
-                expect(status(404))
-            })
-            done();
+                .post('/api/employees/'+ 12345)
+                .send({
+                    name: "TestEmployee",
+                    email: "email"
+                })
+                .expect(422, done);
         })
     })
 
-    it('Should return a 201 when posting a valid employee', (done) => {
+     it('Should return a 201 when posting a valid employee', (done) => {
         request(HOST)
-        .post('/api/label')
+        .post('/api/labels')
         .send({
             name: "labelName"
         })
-        .expect((res) => {
-            expect(status(201))
+        .then(()=> {
+            request(HOST)
+            .get('/api/labels')
+            .end(() => {
+                Label.findOne({name: "labelName"})
+                .then((newLabel) => {
+                    request(HOST)
+                        .post('/api/employees/' + newLabel._id)
+                        .send({
+                            name: "Batman",
+                            email: "Batman@batcave.com"
+                        })
+                        .expect((res) => {
+                            expect(res.body.message).to.include("Employee has been succesfully added to Label.")
+                            expect(res.body.code).to.equal(201)
+                            expect(res.body.label.name).to.equal(newLabel.name)
+                        })
+                        .expect(201, done)
+                })
+            })
         })
-        done();
     })
+   
 
-    it('Should return a 404 while posting an invalid employee', (done) => {
+    it('Should return a 500 while posting an invalid employee', (done) => {
         request(HOST)
         .post('/api/labels')
         .send({
@@ -56,10 +72,7 @@ describe('EmployeeController', () => {
             .send({
                 name: "TestEmployee",
             })
-            .expect((res) => {
-                expect(status(404))
-            })
-            done();
+            .expect(500, done)
         })
     })
 
