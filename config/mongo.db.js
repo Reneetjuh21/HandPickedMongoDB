@@ -10,12 +10,12 @@ mongoose.Promise = global.Promise;
 
 if(process.env.NODE_ENV === 'production'){
     logger.info('-=-=-=-=-=-=-=-=-=-=- Connecting to PRODUCTION database -=-=-=-=-=-=-=-=-=-=-');
-    mongoose.connect('',
+    mongoose.connect('mongodb+srv://studdit:project@studditproject-oi4rl.azure.mongodb.net/HandPicked?retryWrites=true',
         {useNewUrlParser: true});
 
 } else if(process.env.NODE_ENV === 'online-testing'){
     logger.info('-=-=-=-=-=-=-=-=-=-=- Connecting to ONLINE TESTING database -=-=-=-=-=-=-=-=-=-=-');
-    mongoose.connect('',
+    mongoose.connect('mongodb+srv://studdit:project@studditproject-oi4rl.azure.mongodb.net/HandPickedTest?retryWrites=true',
         {useNewUrlParser: true});
 
 }
